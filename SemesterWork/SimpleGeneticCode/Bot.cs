@@ -4,19 +4,20 @@ namespace SimpleGeneticCode
 {
     public class Bot : ICell
     {
-        public int Id { get; }
-        public Point Position { get; private set; }
+        public int Id { get; set; }
         public BotProgram Program { get; private set; }
+        public Point Position { get; private set; }
         public World Environment { get; } 
+        public int Energy { get; private set; }
 
-        public Bot(int id, World world)
+        public Bot(World world)
         {
-            Id = id;
+            Energy = Constants.BotBeginningEnergy;
             Environment = world;
             Program = new BotProgram(this);
         }
 
-        public Bot(int id, Point pos, World world) : this(id, world)
+        public Bot( Point pos, World world) : this(world)
         {
             Position = pos;
         }
@@ -24,6 +25,17 @@ namespace SimpleGeneticCode
         public void Action()
         {
             Program.Execute();
+            if (Energy > Constants.MaxBotEnergy)
+                Energy = Constants.MaxBotEnergy;
+            if (Energy < 1)
+                Remove();
+        }
+
+        public void Remove()
+        {
+            Food food = new Food(Position, Energy < Constants.DefaultFoodEnergy ? Constants.DefaultFoodEnergy : Energy, Environment);
+            Environment.RemoveCell(this);
+            Environment.AddCell(food);
         }
     }
 }
