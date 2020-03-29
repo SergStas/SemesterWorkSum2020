@@ -9,5 +9,6 @@
         public const int BotBeginningEnergy = 50;
         public const int MaxBotEnergy = 200;
         public const int DefaultFoodEnergy = 20;
+        public const int BotEnergyWaste = 15;
     }
 }

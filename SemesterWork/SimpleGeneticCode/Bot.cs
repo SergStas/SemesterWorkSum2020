@@ -8,32 +8,50 @@ namespace SimpleGeneticCode
         public BotProgram Program { get; private set; }
         public Point Position { get; private set; }
         public World Environment { get; } 
-        public int Energy { get; private set; }
+        public int EnergyReserve {
+            get { return energy; } 
+            private set
+            {
+                if (value > Constants.MaxBotEnergy)
+                    energy = Constants.MaxBotEnergy;
+                if (value < 1)
+                    Remove();
+            }
+        }
+
+        int energy;
 
         public Bot(World world)
         {
-            Energy = Constants.BotBeginningEnergy;
+            EnergyReserve = Constants.BotBeginningEnergy;
             Environment = world;
             Program = new BotProgram(this);
         }
 
-        public Bot( Point pos, World world) : this(world)
+        public Bot(Point pos, World world) : this(world)
         {
             Position = pos;
         }
 
+        public void Eat(int dx, int dy)
+        {
+            if (!Environment.InBounds(Position.X + dx, Position.Y + dy))
+                return;
+            ICell target = Environment.Cells[Position.Y + dy, Position.X + dx];
+            if (target is null) return;
+            EnergyReserve += target.EnergyReserve;
+            Environment.RemoveCell(target);
+        }
+
         public void Action()
         {
+            EnergyReserve -= Constants.BotEnergyWaste;
             Program.Execute();
-            if (Energy > Constants.MaxBotEnergy)
-                Energy = Constants.MaxBotEnergy;
-            if (Energy < 1)
-                Remove();
         }
 
         public void Remove()
         {
-            Food food = new Food(Position, Energy < Constants.DefaultFoodEnergy ? Constants.DefaultFoodEnergy : Energy, Environment);
+            Food food = new Food(Position, EnergyReserve < Constants.DefaultFoodEnergy ? Constants.DefaultFoodEnergy : EnergyReserve, Environment);
             Environment.RemoveCell(this);
             Environment.AddCell(food);
         }

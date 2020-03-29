@@ -51,6 +51,15 @@ namespace SimpleGeneticCode
                 ((Bot)cell).Id = idCounter++;
         }
 
+        public void MoveCell(Point position, int dx, int dy)
+        {
+            if (CellIsFree(position) || !InBounds(position.X + dx, position.Y + dy) ||
+                !CellIsFree(position.X + dx, position.Y + dy))
+                return;
+            Cells[position.Y + dy, position.X + dx] = Cells[position.Y, position.X];
+            Cells[position.Y, position.X] = null;
+        }
+
         public void RemoveCell(ICell cell)
         {
             if (CellIsFree(cell.Position))
@@ -59,14 +68,24 @@ namespace SimpleGeneticCode
             FreeSpace++;
         }
 
+        public bool CellIsFree(int x, int y)
+        {
+            return Cells[y, x] is null;
+        }
+
         public bool CellIsFree(Point position)
         {
-            return Cells[position.Y, position.X] is null;
+            return CellIsFree(position.X, position.Y);
+        }
+
+        public bool InBounds(int x, int y)
+        {
+            return x >= 0 && y >= 0 && x < Size.Width && y < Size.Height;
         }
 
         public bool InBounds(Point position)
         {
-            return position.X >= 0 && position.Y >= 0 && position.X < Size.Width && position.Y < Size.Height;
+            return InBounds(position.X, position.Y);
         }
 
         public int GetSunEnergy(Point position)

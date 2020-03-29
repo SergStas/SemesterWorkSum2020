@@ -9,10 +9,17 @@ namespace SimpleGeneticCode
         public const int Size = 64;
         public Bot Owner { get; }
         public int[] Programs { get; private set; }
-        public int Current { get { return Programs[commandPointer]; } }
+        public int Current { get { return Programs[CommandPointer]; } }
+        public int CommandPointer
+        {
+            get { return pointer; } set
+            {
+                pointer = (value + Size) % Size;
+            }
+        }
 
+        int pointer;
         Random random;
-        int commandPointer;
 
         static Dictionary<int, Action<Bot>> commands = new Dictionary<int, Action<Bot>>();
 
@@ -38,7 +45,7 @@ namespace SimpleGeneticCode
 
         void Jump(int n)
         {
-            commandPointer = (commandPointer + n) % Size;
+            CommandPointer += n;
         }
     }
 }
