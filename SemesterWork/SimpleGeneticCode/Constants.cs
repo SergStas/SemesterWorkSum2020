@@ -10,5 +10,6 @@
         public const int MaxBotEnergy = 200;
         public const int DefaultFoodEnergy = 20;
         public const int BotEnergyWaste = 15;
+        public const int IterationsMaxCount = 10;
     }
 }

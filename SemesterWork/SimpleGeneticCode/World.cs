@@ -37,13 +37,13 @@ namespace SimpleGeneticCode
         public void Tick()
         {
             foreach (ICell currentCell in Cells)
-                if (!(currentCell is null))
+                if (!CellIsFree(currentCell))
                     currentCell.Action();
         }
 
         public void AddCell(ICell cell)
         {
-            if (!CellIsFree(cell.Position))
+            if (cell is null || !(InBounds(cell.Position) && CellIsFree(cell.Position)))
                 return;
             Cells[cell.Position.Y, cell.Position.X] = cell;
             FreeSpace--;
@@ -62,7 +62,7 @@ namespace SimpleGeneticCode
 
         public void RemoveCell(ICell cell)
         {
-            if (CellIsFree(cell.Position))
+            if (cell is null || !(InBounds(cell.Position) && !CellIsFree(cell)))
                 return;
             Cells[cell.Position.Y, cell.Position.X] = null;
             FreeSpace++;
@@ -76,6 +76,11 @@ namespace SimpleGeneticCode
         public bool CellIsFree(Point position)
         {
             return CellIsFree(position.X, position.Y);
+        }
+
+        public bool CellIsFree(ICell cell)
+        {
+            return cell is null || CellIsFree(cell.Position.X, cell.Position.Y);
         }
 
         public bool InBounds(int x, int y)

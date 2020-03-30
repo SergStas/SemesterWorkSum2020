@@ -8,6 +8,7 @@ namespace SimpleGeneticCode
     {
         public const int Size = 64;
         public Bot Owner { get; }
+        public int IterationsCounter { get; set; }
         public int[] Programs { get; private set; }
         public int Current { get { return Programs[CommandPointer]; } }
         public int CommandPointer
@@ -37,6 +38,8 @@ namespace SimpleGeneticCode
 
         public void Execute()
         {
+            if (IterationsCounter >= Constants.IterationsMaxCount)
+                return;
             if (commands.ContainsKey(Current))
                 commands[Current](Owner);
             else
@@ -46,6 +49,8 @@ namespace SimpleGeneticCode
         void Jump(int n)
         {
             CommandPointer += n;
+            IterationsCounter++;
+            Execute();
         }
     }
 }

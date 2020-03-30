@@ -1,0 +1,11 @@
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\bin\Debug\netcoreapp3.1\MainForm.exe
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\bin\Debug\netcoreapp3.1\MainForm.deps.json
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\bin\Debug\netcoreapp3.1\MainForm.runtimeconfig.json
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\bin\Debug\netcoreapp3.1\MainForm.runtimeconfig.dev.json
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\bin\Debug\netcoreapp3.1\MainForm.dll
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\bin\Debug\netcoreapp3.1\MainForm.pdb
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\obj\Debug\netcoreapp3.1\MainForm.csprojAssemblyReference.cache
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\obj\Debug\netcoreapp3.1\MainForm.AssemblyInfoInputs.cache
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\obj\Debug\netcoreapp3.1\MainForm.AssemblyInfo.cs
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\obj\Debug\netcoreapp3.1\MainForm.dll
+D:\git\SemesterWorkSum2020\SemesterWork\MainForm\obj\Debug\netcoreapp3.1\MainForm.pdb

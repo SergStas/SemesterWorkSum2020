@@ -15,6 +15,7 @@ namespace MainForm
         public MainForm()
         {
             InitializeComponent();
+            Text = "SemesterWork";
         }
 
     }

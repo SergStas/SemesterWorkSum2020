@@ -28,9 +28,11 @@ namespace SimpleGeneticCode
             Program = new BotProgram(this);
         }
 
-        public Bot(Point pos, World world) : this(world)
+        public Bot(Point pos, World world) : this(world) { Position = pos; }
+
+        public void Move(int dx, int dy)
         {
-            Position = pos;
+            Environment.MoveCell(Position, dx, dy);
         }
 
         public void Eat(int dx, int dy)
@@ -46,6 +48,7 @@ namespace SimpleGeneticCode
         public void Action()
         {
             EnergyReserve -= Constants.BotEnergyWaste;
+            Program.IterationsCounter = 0;
             Program.Execute();
         }
 
