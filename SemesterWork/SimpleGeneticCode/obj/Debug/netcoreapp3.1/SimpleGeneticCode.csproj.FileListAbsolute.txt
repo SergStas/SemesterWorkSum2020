@@ -1,0 +1,8 @@
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\obj\Debug\netcoreapp3.1\SimpleGeneticCode.csprojAssemblyReference.cache
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\obj\Debug\netcoreapp3.1\SimpleGeneticCode.AssemblyInfoInputs.cache
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\obj\Debug\netcoreapp3.1\SimpleGeneticCode.AssemblyInfo.cs
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\bin\Debug\netcoreapp3.1\SimpleGeneticCode.deps.json
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\bin\Debug\netcoreapp3.1\SimpleGeneticCode.dll
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\bin\Debug\netcoreapp3.1\SimpleGeneticCode.pdb
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\obj\Debug\netcoreapp3.1\SimpleGeneticCode.dll
+D:\git\SemesterWorkSum2020\SemesterWork\SimpleGeneticCode\obj\Debug\netcoreapp3.1\SimpleGeneticCode.pdb

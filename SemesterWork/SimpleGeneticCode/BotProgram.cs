@@ -7,13 +7,15 @@ namespace SimpleGeneticCode
     public class BotProgram
     {
         public const int Size = 64;
-        public Bot Owner { get; }
+
+        public Bot Owner { get; set; }
         public int IterationsCounter { get; set; }
         public int[] Programs { get; private set; }
         public int Current { get { return Programs[CommandPointer]; } }
         public int CommandPointer
         {
-            get { return pointer; } set
+            get { return pointer; } 
+            set
             {
                 pointer = (value + Size) % Size;
             }
@@ -24,11 +26,24 @@ namespace SimpleGeneticCode
 
         static Dictionary<int, Action<Bot>> commands = new Dictionary<int, Action<Bot>>();
 
-        public BotProgram(Bot owner)
+        public BotProgram()
         {
-            Owner = owner;
             random = new Random();
             Programs = Programs.Select(x => random.Next(0, Size)).ToArray();
+        }
+
+        public BotProgram(Bot owner) : this() { Owner = owner; }
+
+        public BotProgram GetCopy(bool enableMutation)
+        {
+            BotProgram result = new BotProgram();
+            for (int i = 0; i < Size; i++)
+                result.Programs[i] = Programs[i];
+            if (!enableMutation)
+                return result;
+            int index = random.Next(0, Size);
+            result.Programs[index] = random.Next(0, Size);
+            return result;
         }
 
         public static void RegisterCommand(int number, Action<Bot> action)

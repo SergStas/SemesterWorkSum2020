@@ -8,9 +8,10 @@ namespace SimpleGeneticCode
         public BotProgram Program { get; private set; }
         public Point Position { get; private set; }
         public World Environment { get; } 
-        public int EnergyReserve {
+        public int EnergyReserve 
+        {
             get { return energy; } 
-            private set
+            set
             {
                 if (value > Constants.MaxBotEnergy)
                     energy = Constants.MaxBotEnergy;
@@ -29,6 +30,15 @@ namespace SimpleGeneticCode
         }
 
         public Bot(Point pos, World world) : this(world) { Position = pos; }
+
+        public Bot(BotProgram program, World world, Point pos)
+        {
+            EnergyReserve = Constants.BotBeginningEnergy;
+            Environment = world;
+            Position = pos;
+            Program = program;
+            program.Owner = this;
+        }
 
         public void Move(int dx, int dy)
         {

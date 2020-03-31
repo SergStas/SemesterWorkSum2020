@@ -7,27 +7,53 @@ namespace SimpleGeneticCode
 {
     public static class BasicCommands
     {
-        public static List<Action<Bot>> BasicCommandsList { get; private set; }
-
         static Action<Bot> checkSun = b => { b.Program.CommandPointer += b.Environment.GetSunEnergy(b.Position) < Constants.MaxSunEnergy / 2 ? 1 : 2; CallNextCommand(b); };
         static Action<Bot> checkEnergy = b => { b.Program.CommandPointer += b.EnergyReserve < Constants.MaxBotEnergy / 2 ? 1 : 2; CallNextCommand(b); };
         static Action<Bot> checkMinerals = b => { b.Program.CommandPointer += b.Environment.GetMineralsEnergy(b.Position) < Constants.MaxMineralsEnergy / 2 ? 1 : 2; CallNextCommand(b); };
+        static Action<Bot> getEnergyFromSun = b =>
+        {
+            b.EnergyReserve += b.Environment.GetSunEnergy(b.Position);
+            b.Environment.AtmosphereThickness += Constants.AtmospherePerPhotosynthesis;
+            b.Program.CommandPointer++;
+        };
+        static Action<Bot> getEnergyFromMinerals = b =>
+        {
+            b.EnergyReserve += b.Environment.GetMineralsEnergy(b.Position);
+            b.Program.CommandPointer++;
+        };
 
-        public static void FillList()
+        public static IEnumerable<Action<Bot>> FillList()
         {
             int[] d = new int[] { -1, 0, 1 };
             IEnumerable<Point> pts = d.SelectMany(x => d.Select(a => new Point(x, a)))
                 .Where(a => !(a.X == 0 && a.Y == 0));
-            BasicCommandsList = pts.SelectMany(x => new Action<Bot>[] { CheckCell(x.X, x.Y), Catch(x.X, x.Y), Move(x.X, x.Y) })
-                .Concat(new[] { checkEnergy, checkMinerals, checkSun }).ToList();
+            return pts.SelectMany(x => new [] { CheckCell(x.X, x.Y), Catch(x.X, x.Y), Move(x.X, x.Y), Reproduce(x.X,x.Y) })
+                .Concat(new[] { checkEnergy, checkMinerals, checkSun, getEnergyFromMinerals, getEnergyFromSun });
         }
 
         static Action<Bot> Move(int dx, int dy)
         {
             return b => 
-            { 
+            {
                 b.Program.CommandPointer++; 
                 b.Environment.MoveCell(b.Position, dx, dy); 
+            };
+        }
+
+        static Action<Bot> Reproduce(int dx, int dy)
+        {
+            return b =>
+            {
+                if (b.EnergyReserve < Constants.EnergyBorderValueForReproducing)
+                    return;
+                b.Program.CommandPointer++;
+                Point target = new Point(b.Position.X + dx, b.Position.Y + dy);
+                if (!b.Environment.InBounds(target))
+                    return;
+                BotProgram newProgram = b.Program.GetCopy(true);
+                Bot newBot = new Bot(newProgram, b.Environment, target);
+                b.Environment.AddCell(newBot);
+                b.EnergyReserve -= Constants.ReproducingEnergyWaste;
             };
         }
 
