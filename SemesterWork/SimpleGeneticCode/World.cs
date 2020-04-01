@@ -58,6 +58,7 @@ namespace SimpleGeneticCode
                 return;
             Cells[position.Y + dy, position.X + dx] = Cells[position.Y, position.X];
             Cells[position.Y, position.X] = null;
+            Cells[position.Y + dy, position.X + dx].Position = new Point(position.X + dx, position.Y + dy);
         }
 
         public void RemoveCell(ICell cell)

@@ -36,10 +36,11 @@ namespace SimpleGeneticCode
 
         public BotProgram GetCopy(bool enableMutation)
         {
+            double mutation = random.NextDouble();
             BotProgram result = new BotProgram();
             for (int i = 0; i < Size; i++)
                 result.Programs[i] = Programs[i];
-            if (!enableMutation)
+            if (!enableMutation || mutation > Constants.MutationChance)
                 return result;
             int index = random.Next(0, Size);
             result.Programs[index] = random.Next(0, Size);

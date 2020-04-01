@@ -22,12 +22,9 @@ namespace SimpleGeneticCode
             b.Program.CommandPointer++;
         };
 
-        public static IEnumerable<Action<Bot>> FillList()
+        public static IEnumerable<Action<Bot>> GetBasicCommands()
         {
-            int[] d = new int[] { -1, 0, 1 };
-            IEnumerable<Point> pts = d.SelectMany(x => d.Select(a => new Point(x, a)))
-                .Where(a => !(a.X == 0 && a.Y == 0));
-            return pts.SelectMany(x => new [] { CheckCell(x.X, x.Y), Catch(x.X, x.Y), Move(x.X, x.Y), Reproduce(x.X,x.Y) })
+            return new Point(0, 0).GetNeighbours().SelectMany(x => new[] { CheckCell(x.X, x.Y), Catch(x.X, x.Y), Move(x.X, x.Y), Reproduce(x.X, x.Y) })
                 .Concat(new[] { checkEnergy, checkMinerals, checkSun, getEnergyFromMinerals, getEnergyFromSun });
         }
 
@@ -36,7 +33,7 @@ namespace SimpleGeneticCode
             return b => 
             {
                 b.Program.CommandPointer++; 
-                b.Environment.MoveCell(b.Position, dx, dy); 
+                b.Move(dx, dy); 
             };
         }
 
@@ -44,16 +41,8 @@ namespace SimpleGeneticCode
         {
             return b =>
             {
-                if (b.EnergyReserve < Constants.EnergyBorderValueForReproducing)
-                    return;
+                b.Reproduce(dx, dy, out bool successfully);
                 b.Program.CommandPointer++;
-                Point target = new Point(b.Position.X + dx, b.Position.Y + dy);
-                if (!b.Environment.InBounds(target))
-                    return;
-                BotProgram newProgram = b.Program.GetCopy(true);
-                Bot newBot = new Bot(newProgram, b.Environment, target);
-                b.Environment.AddCell(newBot);
-                b.EnergyReserve -= Constants.ReproducingEnergyWaste;
             };
         }
 

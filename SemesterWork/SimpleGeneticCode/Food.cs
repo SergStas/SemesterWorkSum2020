@@ -5,7 +5,7 @@ namespace SimpleGeneticCode
     public class Food : ICell
     {
         public World Environment { get; }
-        public Point Position { get; }
+        public Point Position { get; set; }
         public int EnergyReserve { get; private set; }
 
         public Food(Point position, int energy, World world)
