@@ -7,9 +7,11 @@ namespace SimpleGeneticCode
         public World Environment { get; }
         public Point Position { get; set; }
         public int EnergyReserve { get; private set; }
+        public Color Color { get; set; }
 
         public Food(Point position, int energy, World world)
         {
+            Color = Color.Brown;
             Position = position;
             EnergyReserve = energy;
             Environment = world;

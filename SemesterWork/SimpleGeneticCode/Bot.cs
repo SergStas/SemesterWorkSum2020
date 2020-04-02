@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace SimpleGeneticCode
 {
@@ -7,7 +8,8 @@ namespace SimpleGeneticCode
         public int Id { get; set; }
         public BotProgram Program { get; private set; }
         public Point Position { get; set; }
-        public World Environment { get; } 
+        public World Environment { get; }
+        public Color Color { get; set; }
         public int EnergyReserve 
         {
             get { return energy; } 
@@ -27,6 +29,7 @@ namespace SimpleGeneticCode
 
         public Bot(World world)
         {
+            Color = Color.White;
             EnergyReserve = Constants.BotBeginningEnergy;
             Environment = world;
             Program = new BotProgram(this);
@@ -56,6 +59,7 @@ namespace SimpleGeneticCode
             if (target is null) return;
             EnergyReserve += target.EnergyReserve;
             Environment.RemoveCell(target);
+            ChangeColor(Color.Red);
         }
 
         public void Reproduce(int dx, int dy, out bool successfully)
@@ -85,6 +89,14 @@ namespace SimpleGeneticCode
             Remove();
         }
 
+        public void ChangeColor(Color rgbPart)
+        {
+            Color = Color.FromArgb(
+                rgbPart== Color.Red ? IncInBounds(Color.R) : DecInBounds(Color.R),
+                rgbPart == Color.Green ? IncInBounds(Color.G) : DecInBounds(Color.G),
+                rgbPart == Color.Blue ? IncInBounds(Color.B) : DecInBounds(Color.B));
+        }
+
         public void Action()
         {
             EnergyReserve -= Constants.BotEnergyWaste;
@@ -97,6 +109,16 @@ namespace SimpleGeneticCode
             Food food = new Food(Position, EnergyReserve < Constants.DefaultFoodEnergy ? Constants.DefaultFoodEnergy : EnergyReserve, Environment);
             Environment.RemoveCell(this);
             Environment.AddCell(food);
+        }
+
+        static int IncInBounds(int i)
+        {
+            return Math.Min(255, i + 1);
+        }
+
+        static int DecInBounds(int i)
+        {
+            return Math.Max(127, i - 1);
         }
     }
 }

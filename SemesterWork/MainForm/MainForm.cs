@@ -16,6 +16,7 @@ namespace MainForm
         {
             InitializeComponent();
             Text = "SemesterWork";
+            Size = new Size(Constants.XWindow, Constants.YWindow);
         }
 
     }

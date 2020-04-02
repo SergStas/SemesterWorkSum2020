@@ -15,11 +15,13 @@ namespace SimpleGeneticCode
             b.EnergyReserve += b.Environment.GetSunEnergy(b.Position);
             b.Environment.AtmosphereThickness += Constants.AtmospherePerPhotosynthesis;
             b.Program.CommandPointer++;
+            b.ChangeColor(Color.Green);
         };
         static Action<Bot> getEnergyFromMinerals = b =>
         {
             b.EnergyReserve += b.Environment.GetMineralsEnergy(b.Position);
             b.Program.CommandPointer++;
+            b.ChangeColor(Color.Blue);
         };
 
         public static IEnumerable<Action<Bot>> GetBasicCommands()
