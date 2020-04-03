@@ -1,6 +1,6 @@
 ﻿namespace MainForm
 {
-    class Constants
+    static class Constants
     {
         public const double FieldRatioX = 1;
         public const double FieldRatioY = 0.75;

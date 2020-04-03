@@ -18,6 +18,5 @@ namespace MainForm
             Text = "SemesterWork";
             Size = new Size(Constants.XWindow, Constants.YWindow);
         }
-
     }
 }

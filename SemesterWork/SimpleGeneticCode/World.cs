@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace SimpleGeneticCode
 {
     public class World
     {
-        public ICell[,] Cells { get; private set; }
+        public ICell[,] Cells { get; }
         public Size Size { get; }
         public int FreeSpace { get; private set; }
         public int AtmosphereThickness
         {
-            get { return atmosphere; } 
+            get => atmosphere;
             set
             {
                 if (value < 0 || value > Constants.MaxThickness)
@@ -39,6 +40,13 @@ namespace SimpleGeneticCode
             foreach (ICell currentCell in Cells)
                 if (!CellIsFree(currentCell))
                     currentCell.Action();
+        }
+
+        public IEnumerable<ICell> GetOccupiedCells()
+        {
+            foreach (ICell currentCell in Cells)
+                if (!(currentCell is null))
+                    yield return currentCell;
         }
 
         public void AddCell(ICell cell)
@@ -96,15 +104,15 @@ namespace SimpleGeneticCode
 
         public int GetSunEnergy(Point position)
         {
-            double heightCoeffitient = Size.Height / (Size.Height + 2.0 * position.Y);
-            double atmosphereCoeffitient = 1 - (double)AtmosphereThickness / Constants.MaxThickness;
-            return (int)(Constants.MaxSunEnergy * heightCoeffitient * atmosphereCoeffitient);
+            double heightCoefficient = Size.Height / (Size.Height + 2.0 * position.Y);
+            double atmosphereCoefficient = 1 - (double)AtmosphereThickness / Constants.MaxThickness;
+            return (int)(Constants.MaxSunEnergy * heightCoefficient * atmosphereCoefficient);
         }
 
         public int GetMineralsEnergy(Point position)
         {
-            double heightCoeffitient = (double)position.Y / Size.Height;
-            return (int)(Constants.MaxMineralsEnergy * heightCoeffitient);
+            double heightCoefficient = (double)position.Y / Size.Height;
+            return (int)(Constants.MaxMineralsEnergy * heightCoefficient);
         }
 
         void AddRandomBots(int count)
