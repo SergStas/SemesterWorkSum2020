@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MainForm
+namespace MainForm_goneToTrash
 {
     public partial class MainForm : Form
     {

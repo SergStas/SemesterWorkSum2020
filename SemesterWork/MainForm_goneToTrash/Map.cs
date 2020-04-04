@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using SimpleGeneticCode;
 
-namespace MainForm
+namespace MainForm_goneToTrash
 {
     class Map
     {

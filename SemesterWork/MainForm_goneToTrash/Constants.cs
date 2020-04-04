@@ -1,4 +1,4 @@
-﻿namespace MainForm
+﻿namespace MainForm_goneToTrash
 {
     static class Constants
     {

@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\git\\SemesterWorkSum2020\\SemesterWork\\MainForm\\MainForm.csproj",
-      "projectName": "MainForm",
-      "projectPath": "D:\\git\\SemesterWorkSum2020\\SemesterWork\\MainForm\\MainForm.csproj",
+      "projectUniqueName": "D:\\git\\SemesterWorkSum2020\\SemesterWork\\MainForm_goneToTrash\\MainForm_goneToTrash.csproj",
+      "projectName": "MainForm_goneToTrash",
+      "projectPath": "D:\\git\\SemesterWorkSum2020\\SemesterWork\\MainForm_goneToTrash\\MainForm_goneToTrash.csproj",
       "packagesPath": "C:\\Users\\79823\\.nuget\\packages\\",
-      "outputPath": "D:\\git\\SemesterWorkSum2020\\SemesterWork\\MainForm\\obj\\",
+      "outputPath": "D:\\git\\SemesterWorkSum2020\\SemesterWork\\MainForm_goneToTrash\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
