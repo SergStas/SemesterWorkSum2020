@@ -1,0 +1,8 @@
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\bin\Debug\netcoreapp3.1\TemporaryContainer.deps.json
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\bin\Debug\netcoreapp3.1\TemporaryContainer.dll
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\bin\Debug\netcoreapp3.1\TemporaryContainer.pdb
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\obj\Debug\netcoreapp3.1\TemporaryContainer.csprojAssemblyReference.cache
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\obj\Debug\netcoreapp3.1\TemporaryContainer.AssemblyInfoInputs.cache
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\obj\Debug\netcoreapp3.1\TemporaryContainer.AssemblyInfo.cs
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\obj\Debug\netcoreapp3.1\TemporaryContainer.dll
+D:\git\SemesterWorkSum2020\SemesterWork\TemporaryContainer\obj\Debug\netcoreapp3.1\TemporaryContainer.pdb

@@ -1,0 +1,5 @@
+D:\git\SemesterWorkSum2020\SemesterWork\Window\obj\Debug\netcoreapp3.1\Window.csprojAssemblyReference.cache
+D:\git\SemesterWorkSum2020\SemesterWork\Window\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+D:\git\SemesterWorkSum2020\SemesterWork\Window\obj\Debug\netcoreapp3.1\App.g.cs
+D:\git\SemesterWorkSum2020\SemesterWork\Window\obj\Debug\netcoreapp3.1\Window_MarkupCompile.cache
+D:\git\SemesterWorkSum2020\SemesterWork\Window\obj\Debug\netcoreapp3.1\Window_MarkupCompile.lref
