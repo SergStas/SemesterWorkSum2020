@@ -3,3 +3,4 @@ D:\git\SemesterWorkSum2020\SemesterWork\MainWindow\obj\Debug\netcoreapp3.1\MainW
 D:\git\SemesterWorkSum2020\SemesterWork\MainWindow\obj\Debug\netcoreapp3.1\App.g.cs
 D:\git\SemesterWorkSum2020\SemesterWork\MainWindow\obj\Debug\netcoreapp3.1\MainWindow_MarkupCompile.cache
 D:\git\SemesterWorkSum2020\SemesterWork\MainWindow\obj\Debug\netcoreapp3.1\MainWindow_MarkupCompile.lref
+D:\git\SemesterWorkSum2020\SemesterWork\MainWindow\obj\Debug\netcoreapp3.1\Window.g.cs

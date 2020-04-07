@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 using SimpleGeneticCode;
 
 namespace MainWindow
 {
     class Map
-    {
+    {/*
+        #region
         public Size MapSize { get; set; }
         public Bitmap Bitmap { get; set; }
         public Size MatrixSize { get; }
@@ -65,5 +67,6 @@ namespace MainWindow
                 Bitmap.SetPixel(i, upperLeft.Y + cellSize.Height - 1, Color.Black);
             }
         }
-    }
+        #endregion
+    */}
 }
