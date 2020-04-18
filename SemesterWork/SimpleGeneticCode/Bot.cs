@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
@@ -9,14 +10,14 @@ namespace SimpleGeneticCode
     public class Bot : ICell
     {
         public int Id { get; set; }
-        public BotProgram Program { get; private set; }
+        public BotProgram Program { get; }
         public Point Position { get; set; }
         public World Environment { get; }
         public Color Color { get; set; }
         public Button Graphics { get; private set; }
         public int EnergyReserve 
         {
-            get { return energy; } 
+            get => energy; 
             set
             {
                 if (value > Constants.MaxBotEnergy)
@@ -34,9 +35,9 @@ namespace SimpleGeneticCode
 
         public Bot(World world)
         {
-            Color = Color.FromRgb(255, 255, 255);
-            EnergyReserve = Constants.BotBeginningEnergy;
             Environment = world;
+            Color = Color.FromRgb(127, 127, 255);
+            EnergyReserve = Constants.BotBeginningEnergy;
             Program = new BotProgram(this);
             CreateGraphics();
         }
@@ -120,7 +121,7 @@ namespace SimpleGeneticCode
 
         void CreateGraphics()
         {
-            Graphics = new Button();
+            Graphics = new Button{ Margin = new Thickness(Constants.GraphicsMargin) };
             brush = new SolidColorBrush(Color);
             Graphics.Background = brush;
         }

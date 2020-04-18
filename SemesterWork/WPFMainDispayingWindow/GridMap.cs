@@ -17,7 +17,7 @@ namespace WPFMainDisplayingWindow
             World = world;
             Size = world.Size;
             Map = new Grid();
-            Map.ShowGridLines = true;
+            Map.ShowGridLines = false;
             FillGrid();
             DrawMap();
         }
@@ -31,11 +31,9 @@ namespace WPFMainDisplayingWindow
         void FillGrid()
         {
             for (int i = 0; i < Size.Height; i++)
-            for (int j = 0; j < Size.Width; j++)
-            {
                 Map.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            for (int j = 0; j < Size.Width; j++)
                 Map.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            }
         }
 
         void DrawMap()
@@ -50,7 +48,7 @@ namespace WPFMainDisplayingWindow
         {
             Map.Children.Add(cell.Graphics);
             Grid.SetColumn(cell.Graphics, cell.Position.X);
-            Grid.SetColumn(cell.Graphics, cell.Position.Y);
+            Grid.SetRow(cell.Graphics, cell.Position.Y);
         }
     }
 }

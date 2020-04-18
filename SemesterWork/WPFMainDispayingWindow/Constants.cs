@@ -6,7 +6,8 @@
         public const double FieldRatioY = 0.75;
         public const int XWindow = 800;
         public const int YWindow = 800;
-        public const int CellsCountX = 100;
-        public const int CellsCountY = 100;
+        public const int FPS = 10;
+        public const int CellsCountX = 40;
+        public const int CellsCountY = 40;
     }
 }

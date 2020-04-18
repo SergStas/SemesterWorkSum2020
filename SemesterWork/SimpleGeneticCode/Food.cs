@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
@@ -19,7 +20,7 @@ namespace SimpleGeneticCode
             Position = position;
             EnergyReserve = energy;
             Environment = world;
-            Graphics = new Button() {Background = new SolidColorBrush(Color)};
+            Graphics = new Button{ Margin = new Thickness(Constants.GraphicsMargin), Background = new SolidColorBrush(Color) };
         }
 
         public void Action()
