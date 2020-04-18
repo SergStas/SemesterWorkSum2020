@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SimpleGeneticCode;
 
 namespace WPFMainDisplayingWindow
 {
@@ -23,6 +24,12 @@ namespace WPFMainDisplayingWindow
         public MainWindow()
         {
             InitializeComponent();
+            BotProgram.UploadCommands(BasicCommands.GetBasicCommands());
+            World world = new World(Constants.CellsCountX, Constants.CellsCountY, 10);
+            GridMap map = new GridMap(world);
+            outputGrid.Children.Add(map.Map);
+            Grid.SetColumn(map.Map, 0);
+            Grid.SetRow(map.Map, 0);
         }
     }
 }

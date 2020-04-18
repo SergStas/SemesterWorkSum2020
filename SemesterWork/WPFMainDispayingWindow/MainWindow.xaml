@@ -6,16 +6,16 @@
         xmlns:local="clr-namespace:WPFMainDisplayingWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid ShowGridLines="True" Name="outputGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Background="Aqua" Grid.Row="0" Grid.Column="0" Width="" Height="50" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Background="Gold" Grid.Row="1" Grid.Column="0" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
+        <!-- <TextBlock Background="Aqua" Grid.Row="0" Grid.Column="0"/> -->
+        <!-- <TextBlock Background="Gold" Grid.Row="1" Grid.Column="0"/> -->
     </Grid>
 </Window>

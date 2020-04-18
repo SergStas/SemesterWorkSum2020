@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Color = System.Windows.Media.Color;
 
 namespace SimpleGeneticCode
 {
@@ -10,6 +13,7 @@ namespace SimpleGeneticCode
         public Point Position { get; set; }
         public World Environment { get; }
         public Color Color { get; set; }
+        public Button Graphics { get; private set; }
         public int EnergyReserve 
         {
             get { return energy; } 
@@ -26,13 +30,15 @@ namespace SimpleGeneticCode
         }
 
         int energy;
+        SolidColorBrush brush;
 
         public Bot(World world)
         {
-            Color = Color.White;
+            Color = Color.FromRgb(255, 255, 255);
             EnergyReserve = Constants.BotBeginningEnergy;
             Environment = world;
             Program = new BotProgram(this);
+            CreateGraphics();
         }
 
         public Bot(Point pos, World world) : this(world) { Position = pos; }
@@ -59,7 +65,7 @@ namespace SimpleGeneticCode
             if (target is null) return;
             EnergyReserve += target.EnergyReserve;
             Environment.RemoveCell(target);
-            ChangeColor(Color.Red);
+            ChangeColor(Color.FromRgb(255, 0, 0));
         }
 
         public void Reproduce(int dx, int dy, out bool successfully)
@@ -91,10 +97,11 @@ namespace SimpleGeneticCode
 
         public void ChangeColor(Color rgbPart)
         {
-            Color = Color.FromArgb(
-                rgbPart== Color.Red ? IncInBounds(Color.R) : DecInBounds(Color.R),
-                rgbPart == Color.Green ? IncInBounds(Color.G) : DecInBounds(Color.G),
-                rgbPart == Color.Blue ? IncInBounds(Color.B) : DecInBounds(Color.B));
+            Color = Color.FromRgb(
+                rgbPart== Color.FromRgb(255, 0, 0) ? IncInBounds(Color.R) : DecInBounds(Color.R),
+                rgbPart == Color.FromRgb(0, 255, 0) ? IncInBounds(Color.G) : DecInBounds(Color.G),
+                rgbPart == Color.FromRgb(0, 0, 255) ? IncInBounds(Color.B) : DecInBounds(Color.B));
+            brush.Color = Color;
         }
 
         public void Action()
@@ -111,14 +118,21 @@ namespace SimpleGeneticCode
             Environment.AddCell(food);
         }
 
-        static int IncInBounds(int i)
+        void CreateGraphics()
         {
-            return Math.Min(255, i + 1);
+            Graphics = new Button();
+            brush = new SolidColorBrush(Color);
+            Graphics.Background = brush;
         }
 
-        static int DecInBounds(int i)
+        static byte IncInBounds(int i)
         {
-            return Math.Max(127, i - 1);
+            return (byte)Math.Min(255, i + 1);
+        }
+
+        static byte DecInBounds(int i)
+        {
+            return (byte)Math.Max(127, i - 1);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace SimpleGeneticCode
 
         public World(int width, int height, int botsCount)
         {
+            FreeSpace = width * height;
             AtmosphereThickness = Constants.OriginAtmosphereThickness;
             random = new Random();
             Size = new Size(width, height);
@@ -125,7 +126,7 @@ namespace SimpleGeneticCode
                     position.X = random.Next(0, Size.Width);
                     position.Y = random.Next(0, Size.Height);
                 }
-                while (CellIsFree(position));
+                while (!CellIsFree(position));
                 Bot bot = new Bot(position, this);
                 AddCell(bot);
                 count--;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +30,7 @@ namespace SimpleGeneticCode
         public BotProgram()
         {
             random = new Random();
+            Programs = new int[Size];
             Programs = Programs.Select(x => random.Next(0, Size)).ToArray();
         }
 
@@ -45,6 +47,15 @@ namespace SimpleGeneticCode
             int index = random.Next(0, Size);
             result.Programs[index] = random.Next(0, Size);
             return result;
+        }
+
+        public static void UploadCommands(IEnumerable<Action<Bot>> collection)
+        {
+            int index = 0;
+            foreach (Action<Bot> act in collection)
+            {
+                RegisterCommand(index++, act);
+            }
         }
 
         public static void RegisterCommand(int number, Action<Bot> action)

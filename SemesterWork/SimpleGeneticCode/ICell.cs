@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Windows.Controls;
+using Color = System.Windows.Media.Color;
 
 namespace SimpleGeneticCode
 {
@@ -10,5 +12,6 @@ namespace SimpleGeneticCode
         public Color Color { get; set; }
         public void Action();
         public void Remove();
+        public Button Graphics { get; }
     }
 }

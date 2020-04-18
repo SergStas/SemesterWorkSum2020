@@ -15,3 +15,6 @@ D:\git\SemesterWorkSum2020\SemesterWork\WPFMainDispayingWindow\obj\Debug\netcore
 D:\git\SemesterWorkSum2020\SemesterWork\WPFMainDispayingWindow\obj\Debug\netcoreapp3.1\WPFMainDispayingWindow.AssemblyInfo.cs
 D:\git\SemesterWorkSum2020\SemesterWork\WPFMainDispayingWindow\obj\Debug\netcoreapp3.1\WPFMainDispayingWindow.dll
 D:\git\SemesterWorkSum2020\SemesterWork\WPFMainDispayingWindow\obj\Debug\netcoreapp3.1\WPFMainDispayingWindow.pdb
+D:\git\SemesterWorkSum2020\SemesterWork\WPFMainDispayingWindow\bin\Debug\netcoreapp3.1\SimpleGeneticCode.dll
+D:\git\SemesterWorkSum2020\SemesterWork\WPFMainDispayingWindow\bin\Debug\netcoreapp3.1\SimpleGeneticCode.pdb
+D:\git\SemesterWorkSum2020\SemesterWork\WPFMainDispayingWindow\obj\Debug\netcoreapp3.1\WPFMainDispayingWindow.csproj.CopyComplete

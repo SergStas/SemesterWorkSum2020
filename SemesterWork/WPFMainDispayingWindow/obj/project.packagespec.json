@@ -18,7 +18,11 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "projectReferences": {}
+        "projectReferences": {
+          "D:\\git\\SemesterWorkSum2020\\SemesterWork\\SimpleGeneticCode\\SimpleGeneticCode.csproj": {
+            "projectPath": "D:\\git\\SemesterWorkSum2020\\SemesterWork\\SimpleGeneticCode\\SimpleGeneticCode.csproj"
+          }
+        }
       }
     },
     "warningProperties": {
