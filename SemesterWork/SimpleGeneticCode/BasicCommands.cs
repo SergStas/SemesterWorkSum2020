@@ -54,11 +54,14 @@ namespace SimpleGeneticCode
         {
             return b =>
             {
+                Point newPos = b.Position.Move(dx, dy);
                 b.Program.CommandPointer++;
-                if (!b.Environment.InBounds(b.Position.X + dx, b.Position.Y + dy))
+                if (!b.Environment.InBounds(newPos, out bool shift) && !shift)
                     return;
+                if (shift)
+                    b.Environment.Shift(ref newPos);
                 int increment = 1;
-                ICell target = b.Environment.Cells[b.Position.Y + dy, b.Position.X + dx];
+                ICell target = b.Environment[newPos];
                 if (target is Food) increment = 2;
                 else if (target is Bot) increment = 3;
                 b.Program.CommandPointer += increment;

@@ -35,12 +35,22 @@ namespace SimpleGeneticCode
         }
 
         public World(Size size, int botsCount) : this(size.Width, size.Height, botsCount) { }
+        
+        public ICell this[Point p]
+        {
+            get => Cells[p.Y, p.X];
+            set => Cells[p.Y, p.X] = value; 
+        }
 
         public void Tick()
         {
             foreach (ICell currentCell in Cells)
+            {
+                if (currentCell is Bot && ((Bot) currentCell).Id == 1)
+                    currentCell.Position = currentCell.Position;
                 if (!CellIsFree(currentCell))
                     currentCell.Action();
+            }
         }
 
         public IEnumerable<ICell> GetOccupiedCells()
@@ -52,9 +62,9 @@ namespace SimpleGeneticCode
 
         public void AddCell(ICell cell)
         {
-            if (cell is null || !(InBounds(cell.Position) && CellIsFree(cell.Position)))
+            if (cell is null || !InBounds(cell.Position, out bool shift) || !CellIsFree(cell.Position))
                 return;
-            Cells[cell.Position.Y, cell.Position.X] = cell;
+            this[cell.Position] = cell;
             FreeSpace--;
             if (cell is Bot)
                 ((Bot)cell).Id = idCounter++;
@@ -62,19 +72,22 @@ namespace SimpleGeneticCode
 
         public void MoveCell(Point position, int dx, int dy)
         {
-            if (CellIsFree(position) || !InBounds(position.X + dx, position.Y + dy) ||
-                !CellIsFree(position.X + dx, position.Y + dy))
+            Point newPos = position.Move(dx, dy);
+            if (CellIsFree(position) || !InBounds(position.X + dx, position.Y + dy, out bool shift) ||
+                !shift && !CellIsFree(newPos))
                 return;
-            Cells[position.Y + dy, position.X + dx] = Cells[position.Y, position.X];
-            Cells[position.Y, position.X] = null;
-            Cells[position.Y + dy, position.X + dx].Position = new Point(position.X + dx, position.Y + dy);
+            if (shift)
+                Shift(ref newPos);
+            this[newPos] = this[position];
+            this[position] = null;
+            this[newPos].Position = newPos;
         }
 
         public void RemoveCell(ICell cell)
         {
-            if (cell is null || !(InBounds(cell.Position) && !CellIsFree(cell)))
+            if (cell is null || !InBounds(cell.Position, out bool shift) || CellIsFree(cell))
                 return;
-            Cells[cell.Position.Y, cell.Position.X] = null;
+            this[cell.Position] = null;
             FreeSpace++;
         }
 
@@ -85,22 +98,23 @@ namespace SimpleGeneticCode
 
         public bool CellIsFree(Point position)
         {
-            return CellIsFree(position.X, position.Y);
+            return this[position] is null;
         }
 
         public bool CellIsFree(ICell cell)
         {
-            return cell is null || CellIsFree(cell.Position.X, cell.Position.Y);
+            return cell is null || CellIsFree(cell.Position);
         }
 
-        public bool InBounds(int x, int y)
+        public bool InBounds(int x, int y, out bool shift)
         {
-            return x >= 0 && y >= 0 && x < Size.Width && y < Size.Height;
+            shift = (x < 0 || x >= Size.Width) && y >= 0 && y < Size.Height;
+            return y >= 0 && y < Size.Height;
         }
 
-        public bool InBounds(Point position)
+        public bool InBounds(Point position, out bool shift)
         {
-            return InBounds(position.X, position.Y);
+            return InBounds(position.X, position.Y, out shift);
         }
 
         public int GetSunEnergy(Point position)
@@ -114,6 +128,16 @@ namespace SimpleGeneticCode
         {
             double heightCoefficient = (double)position.Y / Size.Height;
             return (int)(Constants.MaxMineralsEnergy * heightCoefficient);
+        }
+
+        public void Shift(ICell cell)
+        {
+            cell.Position = new Point((cell.Position.X + Size.Width) % Size.Width, cell.Position.Y);
+        }
+
+        public void Shift(ref Point pos)
+        {
+            pos = new Point((pos.X + Size.Width) % Size.Width, pos.Y);
         }
 
         void AddRandomBots(int count)

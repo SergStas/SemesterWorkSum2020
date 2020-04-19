@@ -49,20 +49,6 @@ namespace SimpleGeneticCode
             return result;
         }
 
-        public static void UploadCommands(IEnumerable<Action<Bot>> collection)
-        {
-            int index = 0;
-            foreach (Action<Bot> act in collection)
-            {
-                RegisterCommand(index++, act);
-            }
-        }
-
-        public static void RegisterCommand(int number, Action<Bot> action)
-        {
-            commands.Add(number, action);
-        }
-
         public void Execute()
         {
             if (IterationsCounter >= Constants.IterationsMaxCount)
@@ -71,6 +57,18 @@ namespace SimpleGeneticCode
                 commands[Current](Owner);
             else
                 Jump(Current);
+        }
+
+        public static void UploadCommands(IEnumerable<Action<Bot>> collection)
+        {
+            int index = 0;
+            foreach (Action<Bot> act in collection)
+                RegisterCommand(index++, act);
+        }
+
+        public static void RegisterCommand(int number, Action<Bot> action)
+        {
+            commands.Add(number, action);
         }
 
         void Jump(int n)

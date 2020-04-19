@@ -48,12 +48,17 @@ namespace WPFMainDisplayingWindow
         GridMap CreateMap()
         {
             BotProgram.UploadCommands(BasicCommands.GetBasicCommands());
-            World world = new World(Constants.CellsCountX, Constants.CellsCountY, 50);
+            World world = new World(Constants.CellsCountX, Constants.CellsCountY, SimpleGeneticCode.Constants.BotsStartCount);
             GridMap map = new GridMap(world);
             outputGrid.Children.Add(map.Map);
             Grid.SetColumn(map.Map, 0);
             Grid.SetRow(map.Map, 0);
             return map;
+        }
+
+        Grid GetInfoPanel()
+        {
+            Grid panel = new Grid();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace SimpleGeneticCode
             get => energy; 
             set
             {
+                energy = value;
                 if (value > Constants.MaxBotEnergy)
                 {
                     energy = Constants.MaxBotEnergy;
@@ -36,7 +37,7 @@ namespace SimpleGeneticCode
         public Bot(World world)
         {
             Environment = world;
-            Color = Color.FromRgb(127, 127, 255);
+            Color = Color.FromRgb(255, 255, 0);
             EnergyReserve = Constants.BotBeginningEnergy;
             Program = new BotProgram(this);
             CreateGraphics();
@@ -51,6 +52,7 @@ namespace SimpleGeneticCode
             Position = pos;
             Program = program;
             program.Owner = this;
+            CreateGraphics();
         }
 
         public void Move(int dx, int dy)
@@ -60,9 +62,13 @@ namespace SimpleGeneticCode
 
         public void Eat(int dx, int dy)
         {
-            if (!Environment.InBounds(Position.X + dx, Position.Y + dy))
+            if (!Environment.InBounds(Position.X + dx, Position.Y + dy, out bool shift) && !shift)
                 return;
-            ICell target = Environment.Cells[Position.Y + dy, Position.X + dx];
+            var e = Position.Move(dx, dy);
+            Position = e;
+            if (shift)
+                Environment.Shift(this);
+            ICell target = Environment[Position];
             if (target is null) return;
             EnergyReserve += target.EnergyReserve;
             Environment.RemoveCell(target);
@@ -75,8 +81,10 @@ namespace SimpleGeneticCode
             if (EnergyReserve < Constants.EnergyBorderValueForReproducing)
                 return;
             Point target = new Point(Position.X + dx, Position.Y + dy);
-            if (!Environment.InBounds(target))
+            if (!Environment.InBounds(target, out bool shift) && !shift)
                 return;
+            if (shift)
+                Environment.Shift(ref target);
             BotProgram newProgram = Program.GetCopy(true);
             Bot newBot = new Bot(newProgram, Environment, target);
             Environment.AddCell(newBot);
@@ -98,10 +106,11 @@ namespace SimpleGeneticCode
 
         public void ChangeColor(Color rgbPart)
         {
-            Color = Color.FromRgb(
-                rgbPart== Color.FromRgb(255, 0, 0) ? IncInBounds(Color.R) : DecInBounds(Color.R),
+            Color = rgbPart;
+            /*Color = Color.FromRgb(
+                rgbPart == Color.FromRgb(255, 0, 0) ? IncInBounds(Color.R) : DecInBounds(Color.R),
                 rgbPart == Color.FromRgb(0, 255, 0) ? IncInBounds(Color.G) : DecInBounds(Color.G),
-                rgbPart == Color.FromRgb(0, 0, 255) ? IncInBounds(Color.B) : DecInBounds(Color.B));
+                rgbPart == Color.FromRgb(0, 0, 255) ? IncInBounds(Color.B) : DecInBounds(Color.B));*/
             brush.Color = Color;
         }
 
@@ -134,6 +143,11 @@ namespace SimpleGeneticCode
         static byte DecInBounds(int i)
         {
             return (byte)Math.Max(127, i - 1);
+        }
+
+        public override string ToString()
+        {
+            return $"Command: {Program.Current}; Energy: {EnergyReserve}";
         }
     }
 }
