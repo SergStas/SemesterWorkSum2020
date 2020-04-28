@@ -14,7 +14,6 @@ namespace SimpleGeneticCode
         public Point Position { get; set; }
         public World Environment { get; }
         public Color Color { get; set; }
-        public Button Graphics { get; private set; }
         public int EnergyReserve 
         {
             get => energy; 
@@ -40,7 +39,6 @@ namespace SimpleGeneticCode
             Color = Color.FromRgb(255, 255, 0);
             EnergyReserve = Constants.BotBeginningEnergy;
             Program = new BotProgram(this);
-            CreateGraphics();
         }
 
         public Bot(Point pos, World world) : this(world) { Position = pos; }
@@ -52,7 +50,6 @@ namespace SimpleGeneticCode
             Position = pos;
             Program = program;
             program.Owner = this;
-            CreateGraphics();
         }
 
         public void Move(int dx, int dy)
@@ -111,7 +108,7 @@ namespace SimpleGeneticCode
                 rgbPart == Color.FromRgb(255, 0, 0) ? IncInBounds(Color.R) : DecInBounds(Color.R),
                 rgbPart == Color.FromRgb(0, 255, 0) ? IncInBounds(Color.G) : DecInBounds(Color.G),
                 rgbPart == Color.FromRgb(0, 0, 255) ? IncInBounds(Color.B) : DecInBounds(Color.B));*/
-            brush.Color = Color;
+            //brush.Color = Color;
         }
 
         public void Action()
@@ -128,12 +125,12 @@ namespace SimpleGeneticCode
             Environment.AddCell(food);
         }
 
-        void CreateGraphics()
+        /*void CreateGraphics()
         {
             Graphics = new Button{ Margin = new Thickness(Constants.GraphicsMargin) };
             brush = new SolidColorBrush(Color);
             Graphics.Background = brush;
-        }
+        }*/
 
         static byte IncInBounds(int i)
         {

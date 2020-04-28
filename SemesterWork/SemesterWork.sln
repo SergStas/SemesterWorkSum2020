@@ -5,11 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGeneticCode", "SimpleGeneticCode\SimpleGeneticCode.csproj", "{143347BE-A683-497C-97CF-4530D80DB5F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemporaryContainer", "TemporaryContainer\TemporaryContainer.csproj", "{1092A2DA-C0F2-4B66-A3C0-6489B0D0B647}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFMainDispayingWindow", "WPFMainDispayingWindow\WPFMainDispayingWindow.csproj", "{DD765FDF-E489-49D4-966F-87C62D0D516D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapDrawer_trash", "MapDrawer_trash\MapDrawer_trash.csproj", "{3E21A1C0-B4D1-4FFF-B855-D7191952BEA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFMainDisplayingWindow", "WPFMainDisplayingWindow\WPFMainDisplayingWindow.csproj", "{DD765FDF-E489-49D4-966F-87C62D0D516D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +17,10 @@ Global
 		{143347BE-A683-497C-97CF-4530D80DB5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143347BE-A683-497C-97CF-4530D80DB5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{143347BE-A683-497C-97CF-4530D80DB5F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1092A2DA-C0F2-4B66-A3C0-6489B0D0B647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1092A2DA-C0F2-4B66-A3C0-6489B0D0B647}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1092A2DA-C0F2-4B66-A3C0-6489B0D0B647}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1092A2DA-C0F2-4B66-A3C0-6489B0D0B647}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD765FDF-E489-49D4-966F-87C62D0D516D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD765FDF-E489-49D4-966F-87C62D0D516D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD765FDF-E489-49D4-966F-87C62D0D516D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD765FDF-E489-49D4-966F-87C62D0D516D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E21A1C0-B4D1-4FFF-B855-D7191952BEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E21A1C0-B4D1-4FFF-B855-D7191952BEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E21A1C0-B4D1-4FFF-B855-D7191952BEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E21A1C0-B4D1-4FFF-B855-D7191952BEA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

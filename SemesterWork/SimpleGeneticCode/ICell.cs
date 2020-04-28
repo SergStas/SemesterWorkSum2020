@@ -12,6 +12,5 @@ namespace SimpleGeneticCode
         public Color Color { get; set; }
         public void Action();
         public void Remove();
-        public Button Graphics { get; }
     }
 }

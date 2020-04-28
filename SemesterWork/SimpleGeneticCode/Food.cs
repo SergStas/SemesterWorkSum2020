@@ -12,7 +12,6 @@ namespace SimpleGeneticCode
         public Point Position { get; set; }
         public int EnergyReserve { get; private set; }
         public Color Color { get; set; }
-        public Button Graphics { get; }
 
         public Food(Point position, int energy, World world)
         {
@@ -20,7 +19,7 @@ namespace SimpleGeneticCode
             Position = position;
             EnergyReserve = energy;
             Environment = world;
-            Graphics = new Button{ Margin = new Thickness(Constants.GraphicsMargin), Background = new SolidColorBrush(Color) };
+            //Graphics = new Button{ Margin = new Thickness(Constants.GraphicsMargin), Background = new SolidColorBrush(Color) };
         }
 
         public void Action()

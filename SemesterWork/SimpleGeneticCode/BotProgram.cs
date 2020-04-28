@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SimpleGeneticCode
 {
@@ -12,20 +13,22 @@ namespace SimpleGeneticCode
         public Bot Owner { get; set; }
         public int IterationsCounter { get; set; }
         public int[] Programs { get; private set; }
-        public int Current { get { return Programs[CommandPointer]; } }
+        public int Current { get => Programs[CommandPointer];  }
+        public string CommandName
+        {
+            get => names.ContainsKey(CommandPointer) ? names[CommandPointer] : $"Jump {CommandPointer}";
+        }
         public int CommandPointer
         {
-            get { return pointer; } 
-            set
-            {
-                pointer = (value + Size) % Size;
-            }
+            get => pointer; 
+            set => pointer = (value + Size) % Size;
         }
 
         int pointer;
         Random random;
 
         static Dictionary<int, Action<Bot>> commands = new Dictionary<int, Action<Bot>>();
+        static Dictionary<int, string> names = new Dictionary<int, string>();
 
         public BotProgram()
         {
@@ -59,11 +62,26 @@ namespace SimpleGeneticCode
                 Jump(Current);
         }
 
-        public static void UploadCommands(IEnumerable<Action<Bot>> collection)
+        public string GetCommandsString()
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < Size; i++) 
+            {
+                builder.Append(Programs[i] + "\t");
+                if (i % 8 == 7)
+                    builder.Append("\n");
+            }
+            return builder.ToString();
+        }
+
+        public static void UploadCommands(Dictionary<string, Action<Bot>> acts)
         {
             int index = 0;
-            foreach (Action<Bot> act in collection)
+            foreach (Action<Bot> act in acts.Values)
                 RegisterCommand(index++, act);
+            index = 0;
+            foreach (string name in acts.Keys)
+                names[index] = name;
         }
 
         public static void RegisterCommand(int number, Action<Bot> action)
