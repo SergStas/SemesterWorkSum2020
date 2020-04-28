@@ -15,7 +15,7 @@
         public const int AtmospherePerPhotosynthesis = 5;
         public const int EnergyBorderValueForReproducing = 125;
         public const int ReproducingEnergyWaste = 100;
-        public const int BotsStartCount = 50;
+        public const int BotsStartCount = 200;
         public const double MutationChance = 0.2;
     }
 }

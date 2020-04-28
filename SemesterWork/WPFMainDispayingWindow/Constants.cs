@@ -2,8 +2,8 @@
 {
     static class Constants
     {
-        public const int FPS = 30;
-        public const int CellsCountX = 100;
-        public const int CellsCountY = 100;
+        public const int FPS = 150;
+        public const int CellsCountX = 50;
+        public const int CellsCountY = 50;
     }
 }

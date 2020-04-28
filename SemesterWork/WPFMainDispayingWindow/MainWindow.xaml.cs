@@ -25,24 +25,65 @@ namespace WPFMainDisplayingWindow
     /// </summary>
     public partial class MainWindow : Window
     {
+        int iterationsCount;
+        GridMap map;
+        TextBox iteratorBox;
+        Button freezeButton;
+        bool freezed;
+        
         public MainWindow()
         {
             InitializeComponent();
-            GridMap map = CreateMap();
+            map = CreateMap();
             DispatcherTimer timer = new DispatcherTimer();
+            SetInterface();
             timer.Interval = TimeSpan.FromMilliseconds(1000 / Constants.FPS);
-            int iterator = 0;
-            TextBox iteratorBox = new TextBox();
-            timer.Tick += (sender, args) =>
-            {
-                map.NextTick();
-                iterator++;
-                iteratorBox.Text = iterator.ToString();
-            };
+            timer.Tick += (sender, args) => Tick();
+            timer.Start();
+        }
+
+        void SetInterface()
+        {
+            SetIterator();
+            SetStopButton();
+        }
+
+        void SetIterator()
+        {
+            iteratorBox = new TextBox();
             outputGrid.Children.Add(iteratorBox);
             Grid.SetColumn(iteratorBox, 0);
             Grid.SetRow(iteratorBox, 1);
-            timer.Start();
+        }
+
+        void SetStopButton()
+        {
+            freezeButton = new Button
+            {
+                Content = "Freeze", 
+                Background = new SolidColorBrush(Colors.Crimson),
+                FontWeight = FontWeights.Bold
+            };
+            outputGrid.Children.Add(freezeButton);
+            Grid.SetColumn(freezeButton, 1);
+            Grid.SetRow(freezeButton, 1);
+            freezeButton.Click += (sender, args) => Freeze();
+        }
+
+        void Freeze()
+        {
+            freezed = !freezed;
+            freezeButton.Content = freezed ? "Unfreeze" : "Freeze";
+            freezeButton.FontWeight = freezed ? FontWeights.ExtraBold : FontWeights.Bold;
+        }
+
+        void Tick()
+        {
+            if (freezed)
+                return;
+            map.NextTick();
+            iterationsCount++;
+            iteratorBox.Text = iterationsCount.ToString();
         }
 
         GridMap CreateMap()
@@ -51,14 +92,13 @@ namespace WPFMainDisplayingWindow
             World world = new World(Constants.CellsCountX, Constants.CellsCountY, SimpleGeneticCode.Constants.BotsStartCount);
             GridMap map = new GridMap(world);
             outputGrid.Children.Add(map.Map);
-            Grid.SetColumn(map.Map, 0);
-            Grid.SetRow(map.Map, 0);
             return map;
         }
 
         Grid GetInfoPanel()
         {
             Grid panel = new Grid();
+            throw new NotImplementedException();
         }
     }
 }
