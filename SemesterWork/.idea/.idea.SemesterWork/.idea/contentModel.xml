@@ -14,6 +14,7 @@
         <e p="Constants.cs" t="Include" />
         <e p="Food.cs" t="Include" />
         <e p="ICell.cs" t="Include" />
+        <e p="ListExtensions.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">

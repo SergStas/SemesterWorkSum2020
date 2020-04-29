@@ -23,18 +23,20 @@ namespace SimpleGeneticCode
         Random random;
         int idCounter;
         int atmosphere;
+        bool randomPrograms;
 
-        public World(int width, int height, int botsCount)
+        public World(int width, int height, int botsCount, bool startWithRandomProgram)
         {
             FreeSpace = width * height;
             AtmosphereThickness = Constants.OriginAtmosphereThickness;
             random = new Random();
             Size = new Size(width, height);
             Cells = new ICell[height, width];
+            randomPrograms = startWithRandomProgram;
             AddRandomBots(botsCount);
         }
 
-        public World(Size size, int botsCount) : this(size.Width, size.Height, botsCount) { }
+        public World(Size size, int botsCount, bool startWithRandomProgram) : this(size.Width, size.Height, botsCount, startWithRandomProgram) { }
         
         public ICell this[Point p]
         {
@@ -46,8 +48,6 @@ namespace SimpleGeneticCode
         {
             foreach (ICell currentCell in Cells)
             {
-                if (currentCell is Bot && ((Bot) currentCell).Id == 1)
-                    currentCell.Position = currentCell.Position;
                 if (!CellIsFree(currentCell))
                     currentCell.Action();
             }
@@ -56,7 +56,7 @@ namespace SimpleGeneticCode
         public IEnumerable<ICell> GetOccupiedCells()
         {
             foreach (ICell currentCell in Cells)
-                if (!(currentCell is null))
+                if (!CellIsFree(currentCell))
                     yield return currentCell;
         }
 
@@ -120,7 +120,7 @@ namespace SimpleGeneticCode
         public int GetSunEnergy(Point position)
         {
             double heightCoefficient = Size.Height / (Size.Height + 2.0 * position.Y);
-            double atmosphereCoefficient = 1 - (double)AtmosphereThickness / Constants.MaxThickness;
+            double atmosphereCoefficient = 1 - Math.Pow((double) AtmosphereThickness / Constants.MaxThickness, 2);
             return (int)(Constants.MaxSunEnergy * heightCoefficient * atmosphereCoefficient);
         }
 
@@ -151,7 +151,7 @@ namespace SimpleGeneticCode
                     position.Y = random.Next(0, Size.Height);
                 }
                 while (!CellIsFree(position));
-                Bot bot = new Bot(position, this);
+                Bot bot = randomPrograms ? new Bot(position, this) : new Bot(position, this, Constants.StartCommand);
                 AddCell(bot);
                 count--;
             }

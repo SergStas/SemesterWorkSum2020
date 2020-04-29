@@ -64,8 +64,8 @@ namespace SimpleGeneticCode
             { "Check Energy", checkEnergy },
             { "Check minerals", checkMinerals },
             { "Check sun", checkSun },
-            { "Photosynthesize", getEnergyFromMinerals },
-            { "Absorb minerals", getEnergyFromSun }
+            { "Absorb minerals", getEnergyFromMinerals },
+            { "Photosynthesize", getEnergyFromSun }
         };
 
         public static Dictionary<string, Action<Bot>> GetBasicCommands()

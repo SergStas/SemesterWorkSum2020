@@ -16,7 +16,7 @@ namespace SimpleGeneticCode
         public int Current { get => Programs[CommandPointer];  }
         public string CommandName
         {
-            get => names.ContainsKey(CommandPointer) ? names[CommandPointer] : $"Jump {CommandPointer}";
+            get => names.ContainsKey(Programs[CommandPointer]) ? names[Programs[CommandPointer]] : $"Jump {Programs[CommandPointer]}";
         }
         public int CommandPointer
         {
@@ -47,9 +47,19 @@ namespace SimpleGeneticCode
                 result.Programs[i] = Programs[i];
             if (!enableMutation || mutation > Constants.MutationChance)
                 return result;
-            int index = random.Next(0, Size);
-            result.Programs[index] = random.Next(0, Size);
+            int count = random.Next(0, Constants.MaxMutationsCount);
+            for (int i = 0; i < count; i++)
+            {
+                int index = random.Next(0, Size);
+                result.Programs[index] = random.Next(0, Size);
+            }
             return result;
+        }
+
+        public void FillWith(int command)
+        {
+            for (int i = 0; i < Size; i++)
+                Programs[i] = command;
         }
 
         public void Execute()
@@ -81,7 +91,7 @@ namespace SimpleGeneticCode
                 RegisterCommand(index++, act);
             index = 0;
             foreach (string name in acts.Keys)
-                names[index] = name;
+                names[index++] = name;
         }
 
         public static void RegisterCommand(int number, Action<Bot> action)

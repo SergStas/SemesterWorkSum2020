@@ -20,7 +20,7 @@ namespace WPFMainDisplayingWindow
 
         Func<ICell, WidgetAssembler, Button> visualizer = (cell, assembler) =>
         {
-            Button result = new Button{ Margin = new Thickness(Constants.GraphicsMargin) };
+            Button result = new Button { Margin = new Thickness(Constants.GraphicsMargin) };
             SolidColorBrush brush = new SolidColorBrush(cell.Color);
             result.Background = brush;
             result.Click += (sender, args) => UpdateInfoPanel(cell, assembler);
@@ -112,7 +112,8 @@ namespace WPFMainDisplayingWindow
         void SetMap()
         {
             BotProgram.UploadCommands(BasicCommands.GetBasicCommands());
-            World world = new World(Constants.CellsCountX, Constants.CellsCountY, SimpleGeneticCode.Constants.BotsStartCount);
+            World world = new World(Constants.CellsCountX, Constants.CellsCountY,
+                SimpleGeneticCode.Constants.BotsStartCount, SimpleGeneticCode.Constants.BeginWithRandomProgram);
             Map = new GridMap(world, visualizer, this);
             OutputGrid.Children.Add(Map.Map);
         }
@@ -126,13 +127,13 @@ namespace WPFMainDisplayingWindow
             sp.Children.Add(new Label { Content = $"Position: ({cell.Position.X}; {cell.Position.Y})" });
             sp.Children.Add(new Label { Content = $"Energy: {cell.EnergyReserve}" });
             sp.Children.Add(new Label { Content = $"Object - {(cell is Food ? "food" : "bot")}" });
+            assembler.SetInfoPanel(panel);
             if (cell is Food)
                 return;
             Bot bot = (Bot)cell;
             sp.Children.Add(new Label { Content = $"Bot ID: {bot.Id}" });
             sp.Children.Add(new Label { Content = $"Program: \n{bot.Program.GetCommandsString()}" });
             sp.Children.Add(new Label { Content = $"Current: {bot.Program.Current} - {bot.Program.CommandName}" });
-            assembler.SetInfoPanel(panel);
         }
     }
 }

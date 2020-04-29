@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -31,8 +32,7 @@ namespace SimpleGeneticCode
         }
 
         int energy;
-        SolidColorBrush brush;
-
+        
         public Bot(World world)
         {
             Environment = world;
@@ -42,6 +42,11 @@ namespace SimpleGeneticCode
         }
 
         public Bot(Point pos, World world) : this(world) { Position = pos; }
+
+        public Bot(Point position, World world, int startCommand) : this(position, world)
+        {
+            Program.FillWith(startCommand);
+        }
 
         public Bot(BotProgram program, World world, Point pos)
         {
@@ -67,7 +72,7 @@ namespace SimpleGeneticCode
                 Environment.Shift(this);
             ICell target = Environment[Position];
             if (target is null) return;
-            EnergyReserve += target.EnergyReserve;
+            EnergyReserve +=(int)(Constants.DevouringBonus * target.EnergyReserve);
             Environment.RemoveCell(target);
             ChangeColor(Color.FromRgb(255, 0, 0));
         }
@@ -92,9 +97,9 @@ namespace SimpleGeneticCode
         public void Autoreproduce()
         {
             bool success = false;
-            foreach (Point currentNeighbour in Position.GetNeighbours())
+            foreach (Point currentNeighbour in Position.GetNeighbours().ToList().Shuffle())
             {
-                Reproduce(currentNeighbour.X, currentNeighbour.Y, out success);
+                Reproduce(currentNeighbour.X - Position.X, currentNeighbour.Y - Position.Y, out success);
                 if (success)
                     return;
             }

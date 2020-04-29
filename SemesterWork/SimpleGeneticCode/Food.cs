@@ -19,12 +19,11 @@ namespace SimpleGeneticCode
             Position = position;
             EnergyReserve = energy;
             Environment = world;
-            //Graphics = new Button{ Margin = new Thickness(Constants.GraphicsMargin), Background = new SolidColorBrush(Color) };
         }
 
         public void Action()
         {
-            Environment.AtmosphereThickness--;
+            Environment.AtmosphereThickness-=Constants.AtmosphereRegenerationPerFood;
             if (--EnergyReserve < 1)
                 Remove();
         }
