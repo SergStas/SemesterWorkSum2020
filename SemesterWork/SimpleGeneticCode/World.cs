@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SimpleGeneticCode
 {
@@ -46,11 +47,10 @@ namespace SimpleGeneticCode
 
         public void Tick()
         {
-            foreach (ICell currentCell in Cells)
-            {
-                if (!CellIsFree(currentCell))
-                    currentCell.Action();
-            }
+            foreach (ICell currentCell in GetOccupiedCells()
+                //.ToList().Shuffle()
+            )
+                currentCell.Action();
         }
 
         public IEnumerable<ICell> GetOccupiedCells()

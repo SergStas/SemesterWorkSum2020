@@ -36,7 +36,7 @@ namespace SimpleGeneticCode
         public Bot(World world)
         {
             Environment = world;
-            Color = Color.FromRgb(255, 255, 0);
+            Color = Color.FromRgb(0, 255, 0);
             EnergyReserve = Constants.BotBeginningEnergy;
             Program = new BotProgram(this);
         }
@@ -55,6 +55,7 @@ namespace SimpleGeneticCode
             Position = pos;
             Program = program;
             program.Owner = this;
+            Color = Color.FromRgb(0, 255, 0);
         }
 
         public void Move(int dx, int dy)

@@ -15,7 +15,7 @@ namespace SimpleGeneticCode
 
         public Food(Point position, int energy, World world)
         {
-            Color = Color.FromRgb(125,125,125);
+            Color = Color.FromRgb(55,55,55);
             Position = position;
             EnergyReserve = energy;
             Environment = world;

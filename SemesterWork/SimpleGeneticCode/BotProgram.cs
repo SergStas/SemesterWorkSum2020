@@ -72,6 +72,14 @@ namespace SimpleGeneticCode
                 Jump(Current);
         }
 
+        public int GetComparisonDelta(BotProgram prg)
+        {
+            int result = 0;
+            for (int i = 0; i < 8; i++)
+                result += Programs[8 * i] == prg.Programs[8 * i] ? 1 : 0;
+            return result;
+        }
+
         public string GetCommandsString()
         {
             StringBuilder builder = new StringBuilder();

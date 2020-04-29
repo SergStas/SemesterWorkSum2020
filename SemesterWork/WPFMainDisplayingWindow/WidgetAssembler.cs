@@ -38,12 +38,14 @@ namespace WPFMainDisplayingWindow
         Button stepButton;
         Button incFPSButton;
         Button decFPSButton;
+        Button menuButton;
 
         Grid statsPanel;
         Label iteratorLabel;
         Label fpsLabel;
         Label atmosphereLabel;
-        
+
+        Color atmosphereColor;
         int iterationsCount;
         bool freezed;
 
@@ -70,6 +72,7 @@ namespace WPFMainDisplayingWindow
         {
             OutputGrid = new Grid();
             OutputGrid.ShowGridLines = true;
+            OutputGrid.Background = new SolidColorBrush(Colors.DimGray);
             OutputGrid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(3, GridUnitType.Star)});
             OutputGrid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)});
             OutputGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(4, GridUnitType.Star) });
@@ -105,11 +108,11 @@ namespace WPFMainDisplayingWindow
             buttonPanel = new Grid();
             buttonPanel.ColumnDefinitions.Add(new ColumnDefinition());
             buttonPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            buttonPanel.ColumnDefinitions.Add(new ColumnDefinition());
             buttonPanel.RowDefinitions.Add(new RowDefinition());
             buttonPanel.RowDefinitions.Add(new RowDefinition());
             buttonPanel.ShowGridLines = true;
             OutputGrid.Children.Add(buttonPanel);
-            Grid.SetColumn(buttonPanel, 1);
             Grid.SetRow(buttonPanel, 1);
             SetFPSControlButtons();
             SetStepButton();
@@ -121,14 +124,12 @@ namespace WPFMainDisplayingWindow
             incFPSButton = new Button
             {
                 Content = "Speed Up", 
-                Background = new SolidColorBrush(Colors.ForestGreen),
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(Constants.LayoutMargin)
             };
             decFPSButton = new Button
             {
                 Content = "Speed Down", 
-                Background = new SolidColorBrush(Colors.ForestGreen),
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(Constants.LayoutMargin)
             };
@@ -146,12 +147,21 @@ namespace WPFMainDisplayingWindow
             freezeButton = new Button
             {
                 Content = "Freeze", 
-                Background = new SolidColorBrush(Colors.Turquoise),
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(Constants.LayoutMargin)
             };
             buttonPanel.Children.Add(freezeButton);
             freezeButton.Click += (sender, args) => Freeze();
+            freezeButton.Click += (sender, args) => ShowWindow();
+        }
+
+        void ShowWindow()
+        {
+            Window w = new Window();
+            Grid g = new Grid();
+            w.Content = g;
+            g.Children.Add(new Button());
+            w.Show();
         }
 
         void SetStepButton()
@@ -159,7 +169,6 @@ namespace WPFMainDisplayingWindow
             stepButton = new Button
             {
                 Content = "Step",
-                Background = new SolidColorBrush(Colors.Turquoise),
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(Constants.LayoutMargin),
                 IsEnabled = false
@@ -179,10 +188,12 @@ namespace WPFMainDisplayingWindow
             statsPanel = new Grid();
             statsPanel.ColumnDefinitions.Add(new ColumnDefinition());
             statsPanel.ColumnDefinitions.Add(new ColumnDefinition());
-            statsPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            statsPanel.RowDefinitions.Add(new RowDefinition());
+            statsPanel.RowDefinitions.Add(new RowDefinition());
             statsPanel.ShowGridLines = true;
             OutputGrid.Children.Add(statsPanel);
             Grid.SetRow(statsPanel, 1);
+            Grid.SetColumn(statsPanel, 1);
             SetIterator();
             SetAtmosphereDisplay();
             SetFPSControlLabel();
@@ -211,7 +222,7 @@ namespace WPFMainDisplayingWindow
                 Margin = new Thickness(Constants.LayoutMargin)
             };
             statsPanel.Children.Add(atmosphereLabel);
-            Grid.SetColumn(atmosphereLabel, 1);
+            Grid.SetRow(atmosphereLabel, 1);
         }
 
         void SetFPSControlLabel()
@@ -251,7 +262,8 @@ namespace WPFMainDisplayingWindow
             Map.NextTick();
             iterationsCount++;
             iteratorLabel.Content = $"Iteration #{iterationsCount}";
-            atmosphereLabel.Content = $"Atmosphere level:\n            {Map.World.AtmosphereThickness}";
+            atmosphereLabel.Content = $"ATM: {Map.World.AtmosphereThickness}";
+            UpdateAtmosphereColor();
         }
 
         void SetMap()
@@ -260,8 +272,15 @@ namespace WPFMainDisplayingWindow
             World world = new World(Constants.CellsCountX, Constants.CellsCountY,
                 SimpleGeneticCode.Constants.BotsStartCount, SimpleGeneticCode.Constants.BeginWithRandomProgram);
             Map = new GridMap(world, visualizer, this);
-            Map.Map.Margin = new Thickness(Constants.CellsMargin);
+            Map.Map.Margin = new Thickness(Constants.LayoutMargin);
             OutputGrid.Children.Add(Map.Map);
+        }
+
+        void UpdateAtmosphereColor()
+        {
+            byte gray = (byte)(255 - (double)(Map.World.AtmosphereThickness * 127 / SimpleGeneticCode.Constants.MaxThickness));
+            atmosphereColor = Color.FromRgb(gray, gray, gray);
+            Map.Map.Background = new SolidColorBrush(atmosphereColor);
         }
 
         static void UpdateInfoPanel(object sender, WidgetAssembler assembler)

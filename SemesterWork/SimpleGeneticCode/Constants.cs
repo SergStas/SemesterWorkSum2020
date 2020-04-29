@@ -19,7 +19,7 @@ namespace SimpleGeneticCode
         public const int ReproducingEnergyWaste = 50;
         public const int BotsStartCount = 100;
         public const int MaxMutationsCount = 20;
-        public const int StartCommand = 20;
+        public const int StartCommand = 44;
         public const double MutationChance = 0.5;
         public const double DevouringBonus = 1.25;
         public const bool BeginWithRandomProgram = true;
