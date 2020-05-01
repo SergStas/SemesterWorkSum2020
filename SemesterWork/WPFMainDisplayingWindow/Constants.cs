@@ -8,5 +8,6 @@
         public const int CellsCountY = 50;
         public const int CellsMargin = 1;
         public const int LayoutMargin = 5;
+        public const int MenuMargin = 10;
     }
 }

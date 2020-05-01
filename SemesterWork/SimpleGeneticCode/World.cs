@@ -48,7 +48,7 @@ namespace SimpleGeneticCode
         public void Tick()
         {
             foreach (ICell currentCell in GetOccupiedCells()
-                //.ToList().Shuffle()
+                .ToList().Shuffle()
             )
                 currentCell.Action();
         }

@@ -32,9 +32,11 @@
         <e p="AssemblyInfo.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Constants.cs" t="Include" />
+        <e p="GameWindow.cs" t="Include" />
         <e p="GridMap.cs" t="Include" />
         <e p="MainWindow.xaml" t="Include" />
         <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="Menu.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">

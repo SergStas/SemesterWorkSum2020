@@ -29,6 +29,8 @@ namespace WPFMainDisplayingWindow
         }
         int fps = 30;
         DispatcherTimer timer;
+        bool started;
+        private GameWindow gameWindow;
 
         Grid infoPanel;
         ICell subject;
@@ -58,7 +60,11 @@ namespace WPFMainDisplayingWindow
             return result;
         };
 
-        public WidgetAssembler() => SetUp();
+        public WidgetAssembler(GameWindow window)
+        {
+            gameWindow = window;
+            SetUp();
+        }
 
         void SetUp()
         {
@@ -66,6 +72,11 @@ namespace WPFMainDisplayingWindow
             SetMap();
             SetInterfacePanels();
             SetTimer();
+        }
+
+        public void Start()
+        {
+            started = true;
         }
 
         void SetOutputGrid()
@@ -117,6 +128,7 @@ namespace WPFMainDisplayingWindow
             SetFPSControlButtons();
             SetStepButton();
             SetStopButton();
+            SetMenuButton();
         }
 
         void SetFPSControlButtons()
@@ -152,16 +164,6 @@ namespace WPFMainDisplayingWindow
             };
             buttonPanel.Children.Add(freezeButton);
             freezeButton.Click += (sender, args) => Freeze();
-            freezeButton.Click += (sender, args) => ShowWindow();
-        }
-
-        void ShowWindow()
-        {
-            Window w = new Window();
-            Grid g = new Grid();
-            w.Content = g;
-            g.Children.Add(new Button());
-            w.Show();
         }
 
         void SetStepButton()
@@ -181,6 +183,19 @@ namespace WPFMainDisplayingWindow
             };
             buttonPanel.Children.Add(stepButton);
             Grid.SetColumn(stepButton, 1);
+        }
+
+        void SetMenuButton()
+        {
+            menuButton = new Button()
+            {
+                Content = "Menu",
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(Constants.LayoutMargin)
+            };
+            buttonPanel.Children.Add(menuButton);
+            Grid.SetColumn(menuButton, 2);
+            menuButton.Click += (sender, args) => OpenMenu();
         }
 
         void SetStatsPanel()
@@ -257,7 +272,7 @@ namespace WPFMainDisplayingWindow
 
         void Tick(object sender)
         {
-            if (freezed && !(sender is Button))
+            if (!started || freezed && !(sender is Button))
                 return;
             Map.NextTick();
             iterationsCount++;
@@ -268,12 +283,18 @@ namespace WPFMainDisplayingWindow
 
         void SetMap()
         {
-            BotProgram.UploadCommands(BasicCommands.GetBasicCommands());
             World world = new World(Constants.CellsCountX, Constants.CellsCountY,
                 SimpleGeneticCode.Constants.BotsStartCount, SimpleGeneticCode.Constants.BeginWithRandomProgram);
             Map = new GridMap(world, visualizer, this);
             Map.Map.Margin = new Thickness(Constants.LayoutMargin);
             OutputGrid.Children.Add(Map.Map);
+        }
+
+        void OpenMenu()
+        {
+            Menu menu = new Menu();
+            menu.Show();
+            gameWindow.Close();
         }
 
         void UpdateAtmosphereColor()

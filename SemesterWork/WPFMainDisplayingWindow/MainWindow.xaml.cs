@@ -26,11 +26,14 @@ namespace WPFMainDisplayingWindow
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
-            WidgetAssembler assembler = new WidgetAssembler();
-            windowGrid.Children.Add(assembler.OutputGrid);
+            BotProgram.UploadCommands(BasicCommands.GetBasicCommands());
+            Hide();
+            Menu menuWindow = new Menu();
+            Close();
         }
     }
 }
