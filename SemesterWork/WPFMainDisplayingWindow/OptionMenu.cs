@@ -15,8 +15,15 @@ namespace WPFMainDisplayingWindow
             mainMenu = menu;
             StackPanel panel = new StackPanel();
             Content = panel;
+            Width = 600;
             foreach (FieldInfo field in typeof(Configurations).GetFields())
-                panel.Children.Add(new ConfigurationBox(field.Name));
+            {
+                if (field.Name == "MutationChance" || field.Name == "BeginWithRandomProgram")
+                    panel.Children.Add(new ConfigurationBox(field.Name, 1, field.FieldType == typeof(double)));
+                else
+                    panel.Children.Add(new ConfigurationBox(field.Name, field.FieldType == typeof(double)));
+            }
+
             Closed += (sender, args) => mainMenu.Show();
         }
     }

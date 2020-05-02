@@ -13,32 +13,36 @@ namespace WPFMainDisplayingWindow
         public string OptionName { get; }
 
         object fieldValue;
-        //bool isDouble = false;
-        private double maxValue = 100;
+        bool isDouble;
+        private double maxValue = 1000;
 
         Slider slider;
         Label valueLabel;
         Label nameLabel;
 
-        public ConfigurationBox(string name)
+        public ConfigurationBox(string name, bool d)
         {
+            isDouble = d;
             OptionName = name;
             fieldValue = typeof(Configurations).GetField(OptionName).GetValue(null);
             SetUp();
         }
 
-        public ConfigurationBox(string name, double max) : this(name) => maxValue = max;
-
-        //public ConfigurationBox(string name, bool d) : this(name) => isDouble = d;
-
-        //public ConfigurationBox(string name, double max, bool d) : this(name, max) => isDouble = d;
+        public ConfigurationBox(string name, double max, bool d)
+        {
+            isDouble = d;
+            OptionName = name;
+            maxValue = max;
+            fieldValue = typeof(Configurations).GetField(OptionName).GetValue(null);
+            SetUp();
+        }
 
         void SetUp()
         {
             Margin = new Thickness(Constants.MenuMargin);
             ShowGridLines = true;
-            ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(2, GridUnitType.Star)});
-            ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(2, GridUnitType.Star)});
+            ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(4, GridUnitType.Star)});
+            ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)});
             ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(5, GridUnitType.Star)});
             SetLabels();
             SetSlider();
@@ -62,9 +66,9 @@ namespace WPFMainDisplayingWindow
         void SetSlider()
         {
             slider = new Slider();
-            slider.Value = (double)fieldValue;
             slider.Minimum = 0;
             slider.Maximum = maxValue;
+            slider.Value = double.Parse(fieldValue.ToString()); // - иначе не работает InvalidCasException из Int32 в Double
             slider.ValueChanged+= (sender, args) =>
             {
                 fieldValue = slider.Value;
@@ -76,7 +80,12 @@ namespace WPFMainDisplayingWindow
 
         void ChangeValue()
         {
-            typeof(Configurations).GetField(OptionName).SetValue(null, fieldValue);
+            valueLabel.Content = isDouble ? double.Parse(fieldValue.ToString()) : (int)double.Parse(fieldValue.ToString());
+            if (isDouble)
+                typeof(Configurations).GetField(OptionName).SetValue(null, double.Parse(fieldValue.ToString()));
+            else
+                typeof(Configurations).GetField(OptionName).SetValue(null, (int)double.Parse(fieldValue.ToString()));
+                
         }
     }
 }

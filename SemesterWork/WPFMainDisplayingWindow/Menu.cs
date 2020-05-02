@@ -72,12 +72,12 @@ namespace WPFMainDisplayingWindow
                 Content = "Configure",
                 Margin = new Thickness(Constants.MenuMargin) 
             };
-            options = new OptionMenu(this);
             buttonPanel.Children.Add(parameterButton);
             Grid.SetRow(parameterButton, 1);
             parameterButton.Click += (sender, args) =>
             {
                 Hide();
+                options = new OptionMenu(this);
                 options.Show();
             };
         }
