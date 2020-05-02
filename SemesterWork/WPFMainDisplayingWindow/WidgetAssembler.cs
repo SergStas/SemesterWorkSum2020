@@ -30,7 +30,7 @@ namespace WPFMainDisplayingWindow
         int fps = 30;
         DispatcherTimer timer;
         bool started;
-        private GameWindow gameWindow;
+        GameWindow gameWindow;
 
         Grid infoPanel;
         ICell subject;
@@ -284,7 +284,7 @@ namespace WPFMainDisplayingWindow
         void SetMap()
         {
             World world = new World(Constants.CellsCountX, Constants.CellsCountY,
-                SimpleGeneticCode.Constants.BotsStartCount, SimpleGeneticCode.Constants.BeginWithRandomProgram);
+                SimpleGeneticCode.Configurations.BotsStartCount, Configurations.BeginWithRandomProgram != 0);
             Map = new GridMap(world, visualizer, this);
             Map.Map.Margin = new Thickness(Constants.LayoutMargin);
             OutputGrid.Children.Add(Map.Map);
@@ -299,7 +299,7 @@ namespace WPFMainDisplayingWindow
 
         void UpdateAtmosphereColor()
         {
-            byte gray = (byte)(255 - (double)(Map.World.AtmosphereThickness * 127 / SimpleGeneticCode.Constants.MaxThickness));
+            byte gray = (byte)(255 - (double)(Map.World.AtmosphereThickness * 127 / SimpleGeneticCode.Configurations.MaxThickness));
             atmosphereColor = Color.FromRgb(gray, gray, gray);
             Map.Map.Background = new SolidColorBrush(atmosphereColor);
         }

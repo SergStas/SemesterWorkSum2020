@@ -11,7 +11,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Bot.cs" t="Include" />
         <e p="BotProgram.cs" t="Include" />
-        <e p="Constants.cs" t="Include" />
+        <e p="Configurations.cs" t="Include" />
         <e p="Food.cs" t="Include" />
         <e p="ICell.cs" t="Include" />
         <e p="ListExtensions.cs" t="Include" />
@@ -31,6 +31,7 @@
         <e p="App.xaml.cs" t="Include" />
         <e p="AssemblyInfo.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="ConfigurationBox.cs" t="Include" />
         <e p="Constants.cs" t="Include" />
         <e p="GameWindow.cs" t="Include" />
         <e p="GridMap.cs" t="Include" />
@@ -46,6 +47,7 @@
             </e>
           </e>
         </e>
+        <e p="OptionMenu.cs" t="Include" />
         <e p="WidgetAssembler.cs" t="Include" />
         <e p="WPFMainDisplayingWindow.csproj" t="IncludeRecursive" />
       </e>

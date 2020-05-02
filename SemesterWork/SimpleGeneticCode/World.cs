@@ -15,7 +15,7 @@ namespace SimpleGeneticCode
             get => atmosphere;
             set
             {
-                if (value < 0 || value > Constants.MaxThickness)
+                if (value < 0 || value > Configurations.MaxThickness)
                     return;
                 atmosphere = value;
             }
@@ -29,7 +29,7 @@ namespace SimpleGeneticCode
         public World(int width, int height, int botsCount, bool startWithRandomProgram)
         {
             FreeSpace = width * height;
-            AtmosphereThickness = Constants.OriginAtmosphereThickness;
+            AtmosphereThickness = Configurations.OriginAtmosphereThickness;
             random = new Random();
             Size = new Size(width, height);
             Cells = new ICell[height, width];
@@ -120,14 +120,14 @@ namespace SimpleGeneticCode
         public int GetSunEnergy(Point position)
         {
             double heightCoefficient = Size.Height / (Size.Height + 2.0 * position.Y);
-            double atmosphereCoefficient = 1 - Math.Pow((double) AtmosphereThickness / Constants.MaxThickness, 2);
-            return (int)(Constants.MaxSunEnergy * heightCoefficient * atmosphereCoefficient);
+            double atmosphereCoefficient = 1 - Math.Pow((double) AtmosphereThickness / Configurations.MaxThickness, 2);
+            return (int)(Configurations.MaxSunEnergy * heightCoefficient * atmosphereCoefficient);
         }
 
         public int GetMineralsEnergy(Point position)
         {
             double heightCoefficient = (double)position.Y / Size.Height;
-            return (int)(Constants.MaxMineralsEnergy * heightCoefficient);
+            return (int)(Configurations.MaxMineralsEnergy * heightCoefficient);
         }
 
         public void Shift(ICell cell)
@@ -151,7 +151,7 @@ namespace SimpleGeneticCode
                     position.Y = random.Next(0, Size.Height);
                 }
                 while (!CellIsFree(position));
-                Bot bot = randomPrograms ? new Bot(position, this) : new Bot(position, this, Constants.StartCommand);
+                Bot bot = randomPrograms ? new Bot(position, this) : new Bot(position, this, Configurations.StartCommand);
                 AddCell(bot);
                 count--;
             }

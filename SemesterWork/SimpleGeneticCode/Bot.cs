@@ -21,9 +21,9 @@ namespace SimpleGeneticCode
             set
             {
                 energy = value;
-                if (value > Constants.MaxBotEnergy)
+                if (value > Configurations.MaxBotEnergy)
                 {
-                    energy = Constants.MaxBotEnergy;
+                    energy = Configurations.MaxBotEnergy;
                     Autoreproduce();
                 }
                 if (value < 1)
@@ -37,7 +37,7 @@ namespace SimpleGeneticCode
         {
             Environment = world;
             Color = Color.FromRgb(0, 255, 0);
-            EnergyReserve = Constants.BotBeginningEnergy;
+            EnergyReserve = Configurations.BotBeginningEnergy;
             Program = new BotProgram(this);
         }
 
@@ -50,7 +50,7 @@ namespace SimpleGeneticCode
 
         public Bot(BotProgram program, World world, Point pos)
         {
-            EnergyReserve = Constants.BotBeginningEnergy;
+            EnergyReserve = Configurations.BotBeginningEnergy;
             Environment = world;
             Position = pos;
             Program = program;
@@ -73,7 +73,7 @@ namespace SimpleGeneticCode
                 Environment.Shift(this);
             ICell target = Environment[Position];
             if (target is null) return;
-            EnergyReserve +=(int)(Constants.DevouringBonus * target.EnergyReserve);
+            EnergyReserve +=(int)(Configurations.DevouringBonus * target.EnergyReserve);
             Environment.RemoveCell(target);
             ChangeColor(Color.FromRgb(255, 0, 0));
         }
@@ -81,7 +81,7 @@ namespace SimpleGeneticCode
         public void Reproduce(int dx, int dy, out bool successfully)
         {
             successfully = false;
-            if (EnergyReserve < Constants.EnergyBorderValueForReproducing)
+            if (EnergyReserve < Configurations.EnergyBorderValueForReproducing)
                 return;
             Point target = new Point(Position.X + dx, Position.Y + dy);
             if (!Environment.InBounds(target, out bool shift) && !shift)
@@ -91,7 +91,7 @@ namespace SimpleGeneticCode
             BotProgram newProgram = Program.GetCopy(true);
             Bot newBot = new Bot(newProgram, Environment, target);
             Environment.AddCell(newBot);
-            EnergyReserve -= Constants.ReproducingEnergyWaste;
+            EnergyReserve -= Configurations.ReproducingEnergyWaste;
             successfully = true;
         }
 
@@ -119,14 +119,14 @@ namespace SimpleGeneticCode
 
         public void Action()
         {
-            EnergyReserve -= Constants.BotEnergyWaste;
+            EnergyReserve -= Configurations.BotEnergyWaste;
             Program.IterationsCounter = 0;
             Program.Execute();
         }
 
         public void Remove()
         {
-            Food food = new Food(Position, EnergyReserve < Constants.DefaultFoodEnergy ? Constants.DefaultFoodEnergy : EnergyReserve, Environment);
+            Food food = new Food(Position, EnergyReserve < Configurations.DefaultFoodEnergy ? Configurations.DefaultFoodEnergy : EnergyReserve, Environment);
             Environment.RemoveCell(this);
             Environment.AddCell(food);
         }

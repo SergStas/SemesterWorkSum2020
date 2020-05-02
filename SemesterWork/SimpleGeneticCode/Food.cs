@@ -23,7 +23,7 @@ namespace SimpleGeneticCode
 
         public void Action()
         {
-            Environment.AtmosphereThickness-=Constants.AtmosphereRegenerationPerFood;
+            Environment.AtmosphereThickness-=Configurations.AtmosphereRegenerationPerFood;
             if (--EnergyReserve < 1)
                 Remove();
         }

@@ -10,6 +10,8 @@ namespace WPFMainDisplayingWindow
 
         Button startButton;
         Button parameterButton;
+
+        OptionMenu options;
         
         public Menu()
         {
@@ -49,7 +51,8 @@ namespace WPFMainDisplayingWindow
         {
             startButton = new Button
             {
-                Content = "Start"
+                Content = "Start",
+                Margin = new Thickness(Constants.MenuMargin)
             };
             buttonPanel.Children.Add(startButton);
             startButton.Click += (sender, args) =>
@@ -66,10 +69,17 @@ namespace WPFMainDisplayingWindow
         {
             parameterButton = new Button
             {
-                Content = "Configure"
+                Content = "Configure",
+                Margin = new Thickness(Constants.MenuMargin) 
             };
+            options = new OptionMenu(this);
             buttonPanel.Children.Add(parameterButton);
             Grid.SetRow(parameterButton, 1);
+            parameterButton.Click += (sender, args) =>
+            {
+                Hide();
+                options.Show();
+            };
         }
     }
 }

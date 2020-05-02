@@ -45,9 +45,9 @@ namespace SimpleGeneticCode
             BotProgram result = new BotProgram();
             for (int i = 0; i < Size; i++)
                 result.Programs[i] = Programs[i];
-            if (!enableMutation || mutation > Constants.MutationChance)
+            if (!enableMutation || mutation > Configurations.MutationChance)
                 return result;
-            int count = random.Next(0, Constants.MaxMutationsCount);
+            int count = random.Next(0, Configurations.MaxMutationsCount);
             for (int i = 0; i < count; i++)
             {
                 int index = random.Next(0, Size);
@@ -64,7 +64,7 @@ namespace SimpleGeneticCode
 
         public void Execute()
         {
-            if (IterationsCounter >= Constants.IterationsMaxCount)
+            if (IterationsCounter >= Configurations.IterationsMaxCount)
                 return;
             if (commands.ContainsKey(Current))
                 commands[Current](Owner);

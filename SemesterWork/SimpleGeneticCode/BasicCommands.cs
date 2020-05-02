@@ -12,27 +12,27 @@ namespace SimpleGeneticCode
     {
         static Action<Bot> checkSun = b =>
         {
-            b.Program.CommandPointer += b.Environment.GetSunEnergy(b.Position) < Constants.MaxSunEnergy / 2 ? 1 : 2;
+            b.Program.CommandPointer += b.Environment.GetSunEnergy(b.Position) < Configurations.MaxSunEnergy / 2 ? 1 : 2;
             CallNextCommand(b);
         };
 
         static Action<Bot> checkEnergy = b =>
         {
-            b.Program.CommandPointer += b.EnergyReserve < Constants.MaxBotEnergy / 2 ? 1 : 2;
+            b.Program.CommandPointer += b.EnergyReserve < Configurations.MaxBotEnergy / 2 ? 1 : 2;
             CallNextCommand(b);
         };
 
         static Action<Bot> checkMinerals = b =>
         {
             b.Program.CommandPointer +=
-                b.Environment.GetMineralsEnergy(b.Position) < Constants.MaxMineralsEnergy / 2 ? 1 : 2;
+                b.Environment.GetMineralsEnergy(b.Position) < Configurations.MaxMineralsEnergy / 2 ? 1 : 2;
             CallNextCommand(b);
         };
 
         private static Action<Bot> getEnergyFromSun = b =>
         {
             b.EnergyReserve += b.Environment.GetSunEnergy(b.Position);
-            b.Environment.AtmosphereThickness += Constants.AtmospherePerPhotosynthesis;
+            b.Environment.AtmosphereThickness += Configurations.AtmospherePerPhotosynthesis;
             b.Program.CommandPointer++;
             b.ChangeColor(Color.FromRgb(0, 255, 0));
         };
