@@ -33,6 +33,8 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="ConfigurationBox.cs" t="Include" />
         <e p="Constants.cs" t="Include" />
+        <e p="Designer.cs" t="Include" />
+        <e p="GameWidgetAssembler.cs" t="Include" />
         <e p="GameWindow.cs" t="Include" />
         <e p="GridMap.cs" t="Include" />
         <e p="MainWindow.xaml" t="Include" />
@@ -48,7 +50,6 @@
           </e>
         </e>
         <e p="OptionMenu.cs" t="Include" />
-        <e p="WidgetAssembler.cs" t="Include" />
         <e p="WPFMainDisplayingWindow.csproj" t="IncludeRecursive" />
       </e>
     </e>

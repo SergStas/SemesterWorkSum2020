@@ -86,7 +86,7 @@ namespace SimpleGeneticCode
             for (int i = 0; i < Size; i++) 
             {
                 builder.Append(Programs[i] + "\t");
-                if (i % 8 == 7)
+                if (i % 4 == 3)
                     builder.Append("\n");
             }
             return builder.ToString();
@@ -102,7 +102,7 @@ namespace SimpleGeneticCode
                 names[index++] = name;
         }
 
-        public static void RegisterCommand(int number, Action<Bot> action)
+        static void RegisterCommand(int number, Action<Bot> action)
         {
             commands.Add(number, action);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace WPFMainDisplayingWindow
 {
@@ -24,8 +25,10 @@ namespace WPFMainDisplayingWindow
 
         void CreateGrid()
         {
-            menuGrid = new Grid();
-            menuGrid.ShowGridLines = true;
+            menuGrid = new Grid
+            {
+                Background = new SolidColorBrush(Colors.DimGray)
+            };
             menuGrid.ColumnDefinitions.Add(new ColumnDefinition());
             menuGrid.ColumnDefinitions.Add(new ColumnDefinition{ Width = new GridLength(4, GridUnitType.Star)});
             menuGrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -49,11 +52,8 @@ namespace WPFMainDisplayingWindow
         
         void SetStartButton()
         {
-            startButton = new Button
-            {
-                Content = "Start",
-                Margin = new Thickness(Constants.MenuMargin)
-            };
+            startButton = new Button();
+            Designer.SetButtonDesign(startButton, "Start");
             buttonPanel.Children.Add(startButton);
             startButton.Click += (sender, args) =>
             {
@@ -67,11 +67,8 @@ namespace WPFMainDisplayingWindow
 
         void SetParameterButton()
         {
-            parameterButton = new Button
-            {
-                Content = "Configure",
-                Margin = new Thickness(Constants.MenuMargin) 
-            };
+            parameterButton = new Button();
+            Designer.SetButtonDesign(parameterButton, "Configure");
             buttonPanel.Children.Add(parameterButton);
             Grid.SetRow(parameterButton, 1);
             parameterButton.Click += (sender, args) =>

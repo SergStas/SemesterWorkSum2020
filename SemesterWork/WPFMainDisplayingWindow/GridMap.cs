@@ -13,10 +13,10 @@ namespace WPFMainDisplayingWindow
         public Size Size { get; }
         public World World { get; }
 
-         Func<ICell, WidgetAssembler, Button> visualizer;
-         WidgetAssembler assembler;
+         Func<ICell, GameWidgetAssembler, Button> visualizer;
+         GameWidgetAssembler assembler;
 
-        public GridMap(World world, Func<ICell, WidgetAssembler, Button> vis, WidgetAssembler wa)
+        public GridMap(World world, Func<ICell, GameWidgetAssembler, Button> vis, GameWidgetAssembler wa)
         {
             World = world;
             visualizer = vis;

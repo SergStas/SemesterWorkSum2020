@@ -4,13 +4,13 @@ namespace WPFMainDisplayingWindow
 {
     public class GameWindow : Window
     {
-        WidgetAssembler assembler;
+        GameWidgetAssembler assembler;
         
         public GameWindow()
         {
-            Width = 800;
-            Height = 600;
-            assembler = new WidgetAssembler(this);
+            WindowState = WindowState.Maximized;
+            WindowStyle = WindowStyle.None;
+            assembler = new GameWidgetAssembler(this);
             Content = assembler.OutputGrid;
             Show();
         }

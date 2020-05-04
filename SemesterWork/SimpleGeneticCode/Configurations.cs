@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace SimpleGeneticCode
 {
@@ -23,5 +25,28 @@ namespace SimpleGeneticCode
         public static double MutationChance = 0.5;
         public static double DevouringBonus = 1.25;
         public static int BeginWithRandomProgram = 1;
+
+        public static readonly Dictionary<string, int> MaxValues = new Dictionary<string, int>
+        {
+            {"OriginAtmosphereThickness", 5000},
+            {"MaxThickness", 5000},
+            {"MaxSunEnergy", 1000},
+            {"MaxMineralsEnergy", 500},
+            {"BotBeginningEnergy", 1000},
+            {"MaxBotEnergy", 1000},
+            {"DefaultFoodEnergy", 1000},
+            {"BotEnergyWaste", 1000},
+            {"IterationsMaxCount", 64},
+            {"AtmospherePerPhotosynthesis", 5000},
+            {"AtmosphereRegenerationPerFood", 5000},
+            {"EnergyBorderValueForReproducing", 5000},
+            {"ReproducingEnergyWaste", 1000},
+            {"BotsStartCount", 1000},
+            {"MaxMutationsCount", 64},
+            {"StartCommand", 63},
+            {"MutationChance", 1},
+            {"DevouringBonus", 10},
+            {"BeginWithRandomProgram", 1}
+        };
     }
 }

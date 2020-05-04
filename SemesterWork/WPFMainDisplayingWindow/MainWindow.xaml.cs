@@ -31,7 +31,6 @@ namespace WPFMainDisplayingWindow
         {
             InitializeComponent();
             BotProgram.UploadCommands(BasicCommands.GetBasicCommands());
-            Hide();
             Menu menuWindow = new Menu();
             Close();
         }

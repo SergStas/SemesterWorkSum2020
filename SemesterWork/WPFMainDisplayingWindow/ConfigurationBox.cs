@@ -14,7 +14,7 @@ namespace WPFMainDisplayingWindow
 
         object fieldValue;
         bool isDouble;
-        private double maxValue = 1000;
+        private double maxValue;
 
         Slider slider;
         Label valueLabel;
@@ -24,15 +24,7 @@ namespace WPFMainDisplayingWindow
         {
             isDouble = d;
             OptionName = name;
-            fieldValue = typeof(Configurations).GetField(OptionName).GetValue(null);
-            SetUp();
-        }
-
-        public ConfigurationBox(string name, double max, bool d)
-        {
-            isDouble = d;
-            OptionName = name;
-            maxValue = max;
+            maxValue = Configurations.MaxValues[OptionName];
             fieldValue = typeof(Configurations).GetField(OptionName).GetValue(null);
             SetUp();
         }
@@ -40,7 +32,6 @@ namespace WPFMainDisplayingWindow
         void SetUp()
         {
             Margin = new Thickness(Constants.MenuMargin);
-            ShowGridLines = true;
             ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(4, GridUnitType.Star)});
             ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)});
             ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(5, GridUnitType.Star)});
@@ -50,14 +41,10 @@ namespace WPFMainDisplayingWindow
 
         void SetLabels()
         {
-            nameLabel = new Label
-            {
-                Content = OptionName
-            };
-            valueLabel = new Label
-            {
-                Content = fieldValue
-            };
+            nameLabel = new Label();
+            Designer.SetLabelDesign(nameLabel, OptionName, false, true);
+            valueLabel = new Label();
+            Designer.SetLabelDesign(valueLabel, fieldValue.ToString(), false, true);
             Children.Add(valueLabel);
             Children.Add(nameLabel);
             SetColumn(valueLabel, 1);
