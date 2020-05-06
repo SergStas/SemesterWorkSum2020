@@ -46,10 +46,11 @@ namespace WPFMainDisplayingWindow
         Label iteratorLabel;
         Label fpsLabel;
         Label atmosphereLabel;
+        Label countLabel;
 
         Color atmosphereColor;
         int iterationsCount;
-        bool freezed;
+        bool freezed = true;
 
         Func<ICell, GameWidgetAssembler, Button> visualizer = (cell, assembler) =>
         {
@@ -72,6 +73,7 @@ namespace WPFMainDisplayingWindow
             SetMap();
             SetInterfacePanels();
             SetTimer();
+            UpdateAtmosphereColor();
         }
 
         public void Start()
@@ -147,7 +149,8 @@ namespace WPFMainDisplayingWindow
         void SetStopButton()
         {
             freezeButton = new Button();
-            Designer.SetButtonDesign(freezeButton, "Freeze");
+            Designer.SetButtonDesign(freezeButton, freezed ? "Unfreeze" : "Freeze");
+            freezeButton.FontWeight = freezed ? FontWeights.ExtraBold : FontWeights.Bold;
             buttonPanel.Children.Add(freezeButton);
             freezeButton.Click += (sender, args) => Freeze();
         }
@@ -156,7 +159,7 @@ namespace WPFMainDisplayingWindow
         {
             stepButton = new Button();
             Designer.SetButtonDesign(stepButton, "Step");
-            stepButton.IsEnabled = false;
+            stepButton.IsEnabled = freezed;
             stepButton.Click += (sender, args) => Tick(sender);
             stepButton.Click += (sender, args) =>
             {
@@ -193,6 +196,7 @@ namespace WPFMainDisplayingWindow
             SetIterator();
             SetAtmosphereDisplay();
             SetFPSControlLabel();
+            SetCountDisplay();
         }
 
         void SetIterator()
@@ -208,6 +212,16 @@ namespace WPFMainDisplayingWindow
             Designer.SetLabelDesign(atmosphereLabel, $"Atmosphere level:\n            {Map.World.AtmosphereThickness}", true, true);
             statsPanel.Children.Add(atmosphereLabel);
             Grid.SetRow(atmosphereLabel, 1);
+        }
+
+        void SetCountDisplay()
+        {
+            countLabel = new Label();
+            Designer.SetLabelDesign(countLabel,
+                $"Count: {Map.World.Size.Height * Map.World.Size.Width - Map.World.FreeSpace}", true, true);
+            statsPanel.Children.Add(countLabel);
+            Grid.SetRow(countLabel, 1);
+            Grid.SetColumn(countLabel, 1);
         }
 
         void SetFPSControlLabel()
@@ -242,6 +256,7 @@ namespace WPFMainDisplayingWindow
             iterationsCount++;
             iteratorLabel.Content = $"Iteration #{iterationsCount}";
             atmosphereLabel.Content = $"ATM: {Map.World.AtmosphereThickness}";
+            countLabel.Content = $"Count: {Map.World.Size.Height * Map.World.Size.Width - Map.World.FreeSpace}";
             UpdateAtmosphereColor();
         }
 

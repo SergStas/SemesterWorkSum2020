@@ -26,7 +26,7 @@ namespace SimpleGeneticCode
                     energy = Configurations.MaxBotEnergy;
                     Autoreproduce();
                 }
-                if (value < 1)
+                else if (value < 1)
                     Remove();
             }
         }
@@ -97,10 +97,9 @@ namespace SimpleGeneticCode
 
         public void Autoreproduce()
         {
-            bool success = false;
             foreach (Point currentNeighbour in Position.GetNeighbours().ToList().Shuffle())
             {
-                Reproduce(currentNeighbour.X - Position.X, currentNeighbour.Y - Position.Y, out success);
+                Reproduce(currentNeighbour.X - Position.X, currentNeighbour.Y - Position.Y, out bool success);
                 if (success)
                     return;
             }
@@ -110,11 +109,6 @@ namespace SimpleGeneticCode
         public void ChangeColor(Color rgbPart)
         {
             Color = rgbPart;
-            /*Color = Color.FromRgb(
-                rgbPart == Color.FromRgb(255, 0, 0) ? IncInBounds(Color.R) : DecInBounds(Color.R),
-                rgbPart == Color.FromRgb(0, 255, 0) ? IncInBounds(Color.G) : DecInBounds(Color.G),
-                rgbPart == Color.FromRgb(0, 0, 255) ? IncInBounds(Color.B) : DecInBounds(Color.B));*/
-            //brush.Color = Color;
         }
 
         public void Action()
@@ -129,23 +123,6 @@ namespace SimpleGeneticCode
             Food food = new Food(Position, EnergyReserve < Configurations.DefaultFoodEnergy ? Configurations.DefaultFoodEnergy : EnergyReserve, Environment);
             Environment.RemoveCell(this);
             Environment.AddCell(food);
-        }
-
-        /*void CreateGraphics()
-        {
-            Graphics = new Button{ Margin = new Thickness(Constants.GraphicsMargin) };
-            brush = new SolidColorBrush(Color);
-            Graphics.Background = brush;
-        }*/
-
-        static byte IncInBounds(int i)
-        {
-            return (byte)Math.Min(255, i + 1);
-        }
-
-        static byte DecInBounds(int i)
-        {
-            return (byte)Math.Max(127, i - 1);
         }
 
         public override string ToString()

@@ -37,8 +37,6 @@ namespace SimpleGeneticCode
             AddRandomBots(botsCount);
         }
 
-        public World(Size size, int botsCount, bool startWithRandomProgram) : this(size.Width, size.Height, botsCount, startWithRandomProgram) { }
-        
         public ICell this[Point p]
         {
             get => Cells[p.Y, p.X];
@@ -47,9 +45,7 @@ namespace SimpleGeneticCode
 
         public void Tick()
         {
-            foreach (ICell currentCell in GetOccupiedCells()
-                .ToList().Shuffle()
-            )
+            foreach (ICell currentCell in GetOccupiedCells().ToList().Shuffle())
                 currentCell.Action();
         }
 
@@ -89,11 +85,6 @@ namespace SimpleGeneticCode
                 return;
             this[cell.Position] = null;
             FreeSpace++;
-        }
-
-        public bool CellIsFree(int x, int y)
-        {
-            return Cells[y, x] is null;
         }
 
         public bool CellIsFree(Point position)
