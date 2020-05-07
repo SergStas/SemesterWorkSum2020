@@ -47,6 +47,7 @@ namespace SimpleGeneticCode
         {
             foreach (ICell currentCell in GetOccupiedCells().ToList().Shuffle())
                 currentCell.Action();
+            GC.Collect();
         }
 
         public IEnumerable<ICell> GetOccupiedCells()

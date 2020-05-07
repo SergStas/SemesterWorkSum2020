@@ -3,15 +3,17 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleGeneticCode;
 using System.Collections.Generic;
+using System.Windows.Media;
 using Size = System.Drawing.Size;
 
 namespace WPFMainDisplayingWindow
 {
     public class GridMap
     {
-        public Grid Map { get; private set; }
+        public Grid Map { get; }
         public Size Size { get; }
         public World World { get; }
+        public ICell Focused { get; set; }
 
          Func<ICell, GameWidgetAssembler, Button> visualizer;
          GameWidgetAssembler assembler;
@@ -53,6 +55,8 @@ namespace WPFMainDisplayingWindow
         void DrawCell(ICell cell)
         {
             Button widget = visualizer(cell, assembler);
+            if (cell == Focused)
+                widget.Background = new SolidColorBrush(Colors.Yellow);
             Map.Children.Add(widget);
             Grid.SetColumn(widget, cell.Position.X);
             Grid.SetRow(widget, cell.Position.Y);

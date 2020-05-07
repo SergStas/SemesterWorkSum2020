@@ -13,6 +13,7 @@ namespace WPFMainDisplayingWindow
             assembler = new GameWidgetAssembler(this);
             Content = assembler.OutputGrid;
             Show();
+            Start();
         }
 
         public void Start()

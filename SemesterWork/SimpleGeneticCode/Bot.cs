@@ -13,7 +13,7 @@ namespace SimpleGeneticCode
         public int Id { get; set; }
         public BotProgram Program { get; }
         public Point Position { get; set; }
-        public World Environment { get; }
+        public World Environment { get; set;  }
         public Color Color { get; set; }
         public int EnergyReserve 
         {
@@ -113,6 +113,8 @@ namespace SimpleGeneticCode
 
         public void Action()
         {
+            if (Environment is null)
+                return;
             EnergyReserve -= Configurations.BotEnergyWaste;
             Program.IterationsCounter = 0;
             Program.Execute();
@@ -121,8 +123,8 @@ namespace SimpleGeneticCode
         public void Remove()
         {
             Food food = new Food(Position, EnergyReserve < Configurations.DefaultFoodEnergy ? Configurations.DefaultFoodEnergy : EnergyReserve, Environment);
-            Environment.RemoveCell(this);
             Environment.AddCell(food);
+            Environment.RemoveCell(this);
         }
 
         public override string ToString()

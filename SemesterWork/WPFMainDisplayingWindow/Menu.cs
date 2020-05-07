@@ -60,7 +60,6 @@ namespace WPFMainDisplayingWindow
                 Hide();
                 GameWindow window = new GameWindow();
                 window.Show();
-                window.Start();
                 Close();
             };
         }

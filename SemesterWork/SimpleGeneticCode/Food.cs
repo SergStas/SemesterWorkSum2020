@@ -8,10 +8,10 @@ namespace SimpleGeneticCode
 {
     public class Food : ICell
     {
-        public World Environment { get; }
+        public World Environment { get; set; }
         public Point Position { get; set; }
-        public int EnergyReserve { get; private set; }
-        public Color Color { get; set; }
+        public int EnergyReserve { get; set; }
+        public Color Color { get; }
 
         public Food(Point position, int energy, World world)
         {

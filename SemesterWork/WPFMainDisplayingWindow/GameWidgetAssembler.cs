@@ -41,6 +41,7 @@ namespace WPFMainDisplayingWindow
         Button incFPSButton;
         Button decFPSButton;
         Button menuButton;
+        Button retartButton;
 
         Grid statsPanel;
         Label iteratorLabel;
@@ -50,7 +51,7 @@ namespace WPFMainDisplayingWindow
 
         Color atmosphereColor;
         int iterationsCount;
-        bool freezed = true;
+        bool freezed;
 
         Func<ICell, GameWidgetAssembler, Button> visualizer = (cell, assembler) =>
         {
@@ -129,6 +130,7 @@ namespace WPFMainDisplayingWindow
             SetStepButton();
             SetStopButton();
             SetMenuButton();
+            SetRestartButton();
         }
 
         void SetFpsControlButtons()
@@ -177,6 +179,21 @@ namespace WPFMainDisplayingWindow
             buttonPanel.Children.Add(menuButton);
             Grid.SetColumn(menuButton, 2);
             menuButton.Click += (sender, args) => OpenMenu();
+        }
+
+        void SetRestartButton()
+        {
+            retartButton = new Button();
+            Designer.SetButtonDesign(retartButton, "Restart");
+            buttonPanel.Children.Add(retartButton);
+            Grid.SetRow(retartButton, 1);
+            Grid.SetColumn(retartButton, 2);
+            retartButton.Click += (sender, args) =>
+            {
+                GameWindow newWindow = new GameWindow();
+                newWindow.Show();
+                gameWindow.Close();
+            };
         }
 
         void SetStatsPanel()
@@ -258,6 +275,7 @@ namespace WPFMainDisplayingWindow
             atmosphereLabel.Content = $"ATM: {Map.World.AtmosphereThickness}";
             countLabel.Content = $"Count: {Map.World.Size.Height * Map.World.Size.Width - Map.World.FreeSpace}";
             UpdateAtmosphereColor();
+            UpdateInfoPanel(subject, this);
         }
 
         void SetMap()
@@ -285,22 +303,25 @@ namespace WPFMainDisplayingWindow
 
         static void UpdateInfoPanel(object sender, GameWidgetAssembler assembler)
         {
-            Grid panel = new Grid();
+            Grid grid = new Grid();
             ICell cell = (ICell)sender;
             assembler.subject = cell;
-            StackPanel sp = new StackPanel();
-            sp.Background = new SolidColorBrush(Colors.LightGray);
-            panel.Children.Add(sp);
-            sp.Children.Add(Designer.GetDesignedLabel($"Position: ({cell.Position.X}; {cell.Position.Y})", true, true));
-            sp.Children.Add(Designer.GetDesignedLabel($"Energy: {cell.EnergyReserve}", true, true));
-            sp.Children.Add(Designer.GetDesignedLabel($"Object - {(cell is Food ? "food" : "bot")}", true, true));
-            assembler.SetInfoPanel(panel);
+            assembler.Map.Focused = assembler.subject;
+            assembler.SetInfoPanel(grid);
+            if (cell is null || cell.EnergyReserve < 1)
+                return;
+            StackPanel panel = new StackPanel();
+            panel.Background = new SolidColorBrush(Colors.LightGray);
+            grid.Children.Add(panel);
+            panel.Children.Add(Designer.GetDesignedLabel($"Position: ({cell.Position.X}; {cell.Position.Y})", true, true));
+            panel.Children.Add(Designer.GetDesignedLabel($"Energy: {cell.EnergyReserve}", true, true));
+            panel.Children.Add(Designer.GetDesignedLabel($"Object - {(cell is Food ? "food" : "bot")}", true, true));
             if (cell is Food)
                 return;
             Bot bot = (Bot)cell;
-            sp.Children.Add(Designer.GetDesignedLabel($"Bot ID: {bot.Id}", true, true));
-            sp.Children.Add(Designer.GetDesignedLabel($"Program: \n{bot.Program.GetCommandsString()}", true, true));
-            sp.Children.Add(Designer.GetDesignedLabel($"Current: {bot.Program.Current}[{bot.Program.CommandPointer}] - {bot.Program.CommandName}", true, true));
+            panel.Children.Add(Designer.GetDesignedLabel($"Bot ID: {bot.Id}", true, true));
+            panel.Children.Add(Designer.GetDesignedLabel($"Program: \n{bot.Program.GetCommandsString()}", true, true));
+            panel.Children.Add(Designer.GetDesignedLabel($"Current: {bot.Program.Current}[{bot.Program.CommandPointer}] - {bot.Program.CommandName}", true, true));
         }
     }
 }
