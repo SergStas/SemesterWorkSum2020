@@ -25,7 +25,7 @@ namespace WPFMainDisplayingWindow
             l.Margin = new Thickness(Constants.LayoutMargin);
             l.FontSize = large ? 24 : 13;
             l.FontFamily = new FontFamily("Courier New");
-            l.Foreground = new SolidColorBrush(black ? Colors.Black : Colors.Gray);
+            l.Foreground = new SolidColorBrush(black ? Colors.Black : Colors.White);
         }
 
         public static Label GetDesignedLabel(string content, bool large, bool black)

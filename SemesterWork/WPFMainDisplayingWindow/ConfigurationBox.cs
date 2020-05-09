@@ -42,9 +42,9 @@ namespace WPFMainDisplayingWindow
         void SetLabels()
         {
             nameLabel = new Label();
-            Designer.SetLabelDesign(nameLabel, OptionName, false, true);
+            Designer.SetLabelDesign(nameLabel, OptionName, false, false);
             valueLabel = new Label();
-            Designer.SetLabelDesign(valueLabel, fieldValue.ToString(), false, true);
+            Designer.SetLabelDesign(valueLabel, fieldValue.ToString(), false, false);
             Children.Add(valueLabel);
             Children.Add(nameLabel);
             SetColumn(valueLabel, 1);

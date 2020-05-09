@@ -26,7 +26,7 @@ namespace SimpleGeneticCode
                     energy = Configurations.MaxBotEnergy;
                     Autoreproduce();
                 }
-                else if (value < 1)
+                if (value < 1)
                     Remove();
             }
         }
@@ -97,9 +97,10 @@ namespace SimpleGeneticCode
 
         public void Autoreproduce()
         {
+            bool success;
             foreach (Point currentNeighbour in Position.GetNeighbours().ToList().Shuffle())
             {
-                Reproduce(currentNeighbour.X - Position.X, currentNeighbour.Y - Position.Y, out bool success);
+                Reproduce(currentNeighbour.X - Position.X, currentNeighbour.Y - Position.Y, out success);
                 if (success)
                     return;
             }
@@ -113,8 +114,6 @@ namespace SimpleGeneticCode
 
         public void Action()
         {
-            if (Environment is null)
-                return;
             EnergyReserve -= Configurations.BotEnergyWaste;
             Program.IterationsCounter = 0;
             Program.Execute();
@@ -123,8 +122,8 @@ namespace SimpleGeneticCode
         public void Remove()
         {
             Food food = new Food(Position, EnergyReserve < Configurations.DefaultFoodEnergy ? Configurations.DefaultFoodEnergy : EnergyReserve, Environment);
-            Environment.AddCell(food);
             Environment.RemoveCell(this);
+            Environment.AddCell(food);
         }
 
         public override string ToString()
